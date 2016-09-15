@@ -97,8 +97,11 @@ public class ItemDaoImpl implements ItemDao {
 			tx = session.beginTransaction();
 			Item item = (Item) session.load(Item.class, i);
 			List<ItemComponent> icomponents = item.getItemComponents();
-			for (ItemComponent ic : icomponents)
+			for (ItemComponent ic : icomponents){
+				logger.info("deleting component: "+ic);
 				session.delete(ic);
+			}
+			logger.info("components deleted");
 			session.delete(item); 
 			tx.commit();
 		}catch (HibernateException e) {

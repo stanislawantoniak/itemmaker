@@ -1,6 +1,5 @@
 package pl.essay.itemMaker.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +23,7 @@ public class ItemComponent {
 	private Item parentItem;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="component_item", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name="component_item", referencedColumnName = "id")
 	private Item componentItem;
 	
 	@Column(name="quantity")

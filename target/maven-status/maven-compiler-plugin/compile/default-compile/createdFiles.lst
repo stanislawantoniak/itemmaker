@@ -1,9 +1,0 @@
-pl\essay\itemMaker\model\Tester.class
-pl\essay\itemMaker\dao\ItemDao.class
-pl\essay\itemMaker\controller\ItemController.class
-pl\essay\itemMaker\model\ItemComponent.class
-pl\essay\itemMaker\model\Item.class
-pl\essay\itemMaker\dao\ItemDaoImpl.class
-pl\essay\itemMaker\controller\MainController.class
-pl\essay\itemMaker\service\ItemService.class
-pl\essay\itemMaker\service\ItemServiceImpl.class

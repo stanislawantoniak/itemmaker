@@ -1,6 +1,7 @@
 package pl.essay.itemMaker.controller;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -37,9 +38,10 @@ public class ItemController {
 
 	@RequestMapping(value = "/items", method = RequestMethod.GET)
 	public String listItems(Model model) {
-		logger.info("from controller.items");
+		List<Item> theList = (List<Item>) this.itemService.listItems();
+		logger.info("list size: "+theList.size());
 		model.addAttribute("item", new Item());
-		model.addAttribute("itemsList", this.itemService.listItems());
+		model.addAttribute("itemsList", theList);
 		return "itemList";
 	}
 
@@ -56,6 +58,7 @@ public class ItemController {
 	
 	@RequestMapping(value= "/item/update", method = RequestMethod.POST)
 	public String updateItem(@ModelAttribute("item") Item p,  RedirectAttributes redirectAttributes){
+		logger.info("item data: "+p);
 		this.itemService.updateItem(p);
 		return  "redirect:/items" ;
 	}
@@ -120,8 +123,6 @@ public class ItemController {
 		System.out.println("from controller.editItemComponent");
 		ItemComponent ic = this.itemService.getItemComponent(id);
 		Item item = ic.getParentItem();
-	
-		
 		model.addAttribute("allItems", getItemListForSelect());
 		model.addAttribute("item", item);
 		model.addAttribute("itemComponent", ic);

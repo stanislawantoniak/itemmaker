@@ -24,12 +24,10 @@ import pl.essay.itemMaker.model.ItemComponent;
 import pl.essay.itemMaker.service.ItemService;
 
 @Controller
-public class ItemController {
+public class ItemController extends BaseUserController{
 
 	private ItemService itemService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ItemDaoImpl.class);
-
 	@Autowired(required=true)
 	@Qualifier(value="itemService")
 	public void setItemService(ItemService ps){
@@ -38,6 +36,9 @@ public class ItemController {
 
 	@RequestMapping(value = "/items", method = RequestMethod.GET)
 	public String listItems(Model model) {
+		
+		this.addUserSessionToModel(model);
+		
 		List<Item> theList = (List<Item>) this.itemService.listItems();
 		logger.info("list size: "+theList.size());
 		model.addAttribute("item", new Item());
@@ -100,6 +101,9 @@ public class ItemController {
 	@RequestMapping("/item/addComponent/{id}")
 	public String addItemComponent(@PathVariable("id") int itemId, Model model){
 		logger.info("from controller.addItemComponent");
+		
+		this.addUserSessionToModel(model);
+		
 		ItemComponent ic = new ItemComponent();
 		Item item = this.itemService.getItemById(itemId);
 		ic.setParentItem(item);
@@ -120,7 +124,8 @@ public class ItemController {
 	}
 	@RequestMapping("/item/editComponent/{id}")
 	public String editItemComponent(@PathVariable("id") int id, Model model){
-		System.out.println("from controller.editItemComponent");
+		this.addUserSessionToModel(model);
+
 		ItemComponent ic = this.itemService.getItemComponent(id);
 		Item item = ic.getParentItem();
 		model.addAttribute("allItems", getItemListForSelect());
@@ -138,6 +143,8 @@ public class ItemController {
 	@RequestMapping("/edit/{id}")
 	public String editItem(@PathVariable("id") int id, Model model){
 		logger.info("from controller.editItem");
+		this.addUserSessionToModel(model);
+		
 		model.addAttribute("item", this.itemService.getItemById(id));
 		model.addAttribute("itemComponents", this.itemService.listItemComponent(id));
 		return "itemEdit";

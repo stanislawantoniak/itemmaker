@@ -6,9 +6,17 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<c:url value="/" var="main"/>
+		<c:url value="/" var="main" />
 		<a class="navbar-brand" href="${main}">Item Maker 1.0</a>
 	</div>
+	<ul class="nav navbar-top-links navbar-right">
+		<li class="dropdown open"><a class="dropdown-toggle" href="#"
+			data-toggle="dropdown" aria-expanded="true"> 
+			<i
+				class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+		</a></li>
+	</ul>
+
 	<%--<%@ include file="navbar-right.jsp"%>--%>
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
@@ -23,7 +31,7 @@
 						</span>
 					</div>
 				</li>
-				<c:url value="/items" var="items"/>
+				<c:url value="/items" var="items" />
 				<li><a class="active" href="${items}"> <i
 						class="fa fa-dashboard fa-fw"></i> Manage Items
 				</a></li>

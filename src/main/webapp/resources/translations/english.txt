@@ -1,0 +1,13 @@
+#generic;translations
+"app.name","Item Maker 1.0"
+"leftpanel.menu.manageitems","Manage Items"
+"search.widget.text","Search"
+
+#itemslist;translations
+"itemslist.title","Items"
+"itemslist.form.heading","Manage Items"
+"itemslist.subform.additem.heading","Add Item"
+"itemslist.subform.additem.label.itemname","Name"
+"itemslist.subform.additem.label.iscomposed","Is composed"
+"itemslist.subform.additem.button.additem","Add Item"
+

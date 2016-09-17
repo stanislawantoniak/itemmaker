@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -18,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.essay.itemMaker.dao.ItemDaoImpl;
 import pl.essay.itemMaker.model.Item;
 import pl.essay.itemMaker.model.ItemComponent;
 import pl.essay.itemMaker.service.ItemService;
 
 @Controller
-public class ItemController extends BaseUserController{
+public class ItemController extends BaseController {
 
 	private ItemService itemService;
 	
@@ -37,7 +34,7 @@ public class ItemController extends BaseUserController{
 	@RequestMapping(value = "/items", method = RequestMethod.GET)
 	public String listItems(Model model) {
 		
-		this.addUserSessionToModel(model);
+		this.addGenericDataToModel(model);
 		
 		List<Item> theList = (List<Item>) this.itemService.listItems();
 		logger.info("list size: "+theList.size());
@@ -102,7 +99,7 @@ public class ItemController extends BaseUserController{
 	public String addItemComponent(@PathVariable("id") int itemId, Model model){
 		logger.info("from controller.addItemComponent");
 		
-		this.addUserSessionToModel(model);
+		this.addGenericDataToModel(model);
 		
 		ItemComponent ic = new ItemComponent();
 		Item item = this.itemService.getItemById(itemId);
@@ -124,7 +121,7 @@ public class ItemController extends BaseUserController{
 	}
 	@RequestMapping("/item/editComponent/{id}")
 	public String editItemComponent(@PathVariable("id") int id, Model model){
-		this.addUserSessionToModel(model);
+		this.addGenericDataToModel(model);
 
 		ItemComponent ic = this.itemService.getItemComponent(id);
 		Item item = ic.getParentItem();
@@ -143,7 +140,7 @@ public class ItemController extends BaseUserController{
 	@RequestMapping("/edit/{id}")
 	public String editItem(@PathVariable("id") int id, Model model){
 		logger.info("from controller.editItem");
-		this.addUserSessionToModel(model);
+		this.addGenericDataToModel(model);
 		
 		model.addAttribute("item", this.itemService.getItemById(id));
 		model.addAttribute("itemComponents", this.itemService.listItemComponent(id));

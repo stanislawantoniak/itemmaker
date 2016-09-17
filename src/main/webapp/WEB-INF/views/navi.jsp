@@ -7,14 +7,20 @@
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
 		<c:url value="/" var="main" />
-		<a class="navbar-brand" href="${main}">Item Maker 1.0</a>
+		<a class="navbar-brand" href="${main}">"${__static__.key["app.name"]} - Item Maker 1.0</a>
 	</div>
 	<ul class="nav navbar-top-links navbar-right">
-		<li class="dropdown open"><a class="dropdown-toggle" href="#"
-			data-toggle="dropdown" aria-expanded="true"> 
-			<i
-				class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-		</a></li>
+		<li class="dropdown"><a class="dropdown-toggle" href="#"
+			data-toggle="dropdown" aria-expanded="true"> <img src="<c:url value="/resources/${user.languageSelected.flag}"/>"/> <i class="fa fa-caret-down"></i>
+		</a>
+			<ul class="dropdown-menu dropdown-user">
+				<c:forEach items="${languages}" var="language">
+				<c:url value="/selectLanguage" var="selectLanguage" />
+					<li><a href="${selectLanguage}/${language.acronym}"> <img src="<c:url value="/resources/${language.flag}"/>"/>
+							${language.name}
+					</a></li>
+				</c:forEach>
+			</ul></li>
 	</ul>
 
 	<%--<%@ include file="navbar-right.jsp"%>--%>

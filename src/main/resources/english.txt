@@ -3,6 +3,9 @@
 "leftpanel.menu.manageitems","Manage Items"
 "search.widget.text","Search"
 
+#sahsboard;translations
+"dashboard.content","Dashboard"
+
 #itemslist;translations
 "itemslist.title","Items"
 "itemslist.form.heading","Manage Items"

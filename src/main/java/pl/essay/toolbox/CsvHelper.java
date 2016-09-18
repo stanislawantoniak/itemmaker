@@ -6,6 +6,10 @@ import java.util.*;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.Resource;
 
 import com.opencsv.CSVReader;
 
@@ -16,7 +20,6 @@ public class CsvHelper {
 	protected static final Logger logger = LoggerFactory.getLogger(CsvHelper.class);
 	
 	public static String getStringFromInputStream(InputStream csv) throws IOException {
-		logger.info("break helper: 1" + csv);
 		String content = IOUtils.toString(csv,"UTF-8");
 		return content;
 	}
@@ -25,7 +28,7 @@ public class CsvHelper {
 
 		List<String[]> csvSplitted = new ArrayList<String[]>();
 
-		CSVReader reader = new CSVReader(new StringReader(fileContent),',' ) ;
+		CSVReader reader = new CSVReader(new StringReader(fileContent),',','"' ) ;
 		csvSplitted = reader.readAll();
 		reader.close();
 		
@@ -38,31 +41,32 @@ public class CsvHelper {
 		return csv;
 	}
 	
-	public static Map<String, String[]> getMapStringStringArrayFromCsvFile(String file) {
-		InputStream csv = 
-				(InputStream) Translator.class.getResourceAsStream(file);
-		
-		logger.info("break: 2" );
-		
+	public static Map<String, String[]> getMapStringStringArrayFromIS(InputStream is) {
+		//InputStream csv =	(InputStream) Translator.class.getResourceAsStream(file);
+
+		Map<String, String[]> tempMap = new HashMap<String,String[]>();
+		if (is == null)
+			return tempMap;
+	
 		String content = "";
 		try {
-			content = CsvHelper.getStringFromInputStream(csv);
+			content = CsvHelper.getStringFromInputStream(is);
 		} catch (IOException e1) {
 			logger.error("", e1);
 		}
 		
-		Map<String, String[]> tempMap = new HashMap<String,String[]>();
 		try {
 			tempMap = CsvHelper.getMapFromCsv(content, 0);
 		} catch (IOException e) {
 			logger.error("", e);
 		}
-		if (csv != null)
+		if (is != null)
 			try {
-				csv.close();
+				is.close();
 			} catch (IOException e) {
 				logger.error("", e);
 			}
 		return tempMap;
 	}
+
 }

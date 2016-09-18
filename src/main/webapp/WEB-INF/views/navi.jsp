@@ -7,8 +7,9 @@
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
 		<c:url value="/" var="main" />
-		<a class="navbar-brand" href="${main}">"${__static__.key["app.name"]} - Item Maker 1.0</a>
+		<a class="navbar-brand" href="${main}">${__static__['app.name']}</a>
 	</div>
+	
 	<ul class="nav navbar-top-links navbar-right">
 		<li class="dropdown"><a class="dropdown-toggle" href="#"
 			data-toggle="dropdown" aria-expanded="true"> <img src="<c:url value="/resources/${user.languageSelected.flag}"/>"/> <i class="fa fa-caret-down"></i>
@@ -22,14 +23,14 @@
 				</c:forEach>
 			</ul></li>
 	</ul>
-
+							
 	<%--<%@ include file="navbar-right.jsp"%>--%>
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
 			<ul id="side-menu" class="nav in">
 				<li class="sidebar-search">
 					<div class="input-group custom-search-form">
-						<input class="form-control" type="text" placeholder="Search...">
+						<input class="form-control" type="text" placeholder="${__static__['search.widget.text']}">
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button">
 								<i class="fa fa-search"></i>
@@ -39,7 +40,7 @@
 				</li>
 				<c:url value="/items" var="items" />
 				<li><a class="active" href="${items}"> <i
-						class="fa fa-dashboard fa-fw"></i> Manage Items
+						class="fa fa-dashboard fa-fw"></i> ${__static__['leftpanel.menu.manageitems']}
 				</a></li>
 			</ul>
 		</div>

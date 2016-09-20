@@ -11,7 +11,8 @@
 	</div>
 	
 	<ul class="nav navbar-top-links navbar-right">
-		<li class="dropdown"><a class="dropdown-toggle" href="#"
+	<c:if test="${languageSelectorClass == null}"><c:set var="languageSelectorClass" value=""/></c:if>
+		<li class="dropdown"><a class="dropdown-toggle  ${languageSelectorClass}" href="#"
 			data-toggle="dropdown" aria-expanded="true"> <img src="<c:url value="/resources/${user.languageSelected.flag}"/>"/> <i class="fa fa-caret-down"></i>
 		</a>
 			<ul class="dropdown-menu dropdown-user">

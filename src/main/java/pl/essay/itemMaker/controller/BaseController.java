@@ -12,8 +12,6 @@ import pl.essay.session.UserSession;
 @Controller
 public class BaseController {
 
-	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
-
 	 //with scope session
 	@Autowired
 	protected UserSession userSession;
@@ -31,7 +29,7 @@ public class BaseController {
 	protected void addGenericDataToModel(Model model){
 		model.addAttribute("user", this.getUserSession());
 		model.addAttribute("languages", this.languages.getLanguages());
-		model.addAttribute("__static__", this.userSession.getLanguageSelected().getStaticTexts());
+		model.addAttribute("__static__", this.userSession.getLanguageSelected().getTranslator().getTranslations());
 	}
 
 }

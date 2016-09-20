@@ -1,12 +1,25 @@
-#generic;translations
+generic;translations
 "app.name","Item Maker 1.0"
-"leftpanel.menu.manageitems","Zarz�dzanie produktami"
+"leftpanel.menu.manageitems","Zarządzanie produktami"
 "search.widget.text","Szukaj..."
 
-#itemslist;translations
-"itemslist.title","Items"
-"itemslist.form.heading","Manage Items"
-"itemslist.subform.additem.heading","Add Item"
-"itemslist.subform.additem.label.itemname","Name"
-"itemslist.subform.additem.label.iscomposed","Is composed"
-"itemslist.subform.additem.button.additem","Add Item"
+sahsboard;translations
+"dashboard.content","Dashboard"
+
+itemslist;translations
+"itemslist.title","Produkty"
+"itemslist.form.heading","Zarządzaj produktami"
+"itemslist.subform.additem.heading","Dodaj produkt"
+"itemslist.subform.edititem.heading","Edytuj produkt #"
+"itemslist.subform.additem.label.itemname","Nazwa "
+"itemslist.subform.additem.label.iscomposed","Czy złożony"
+"itemslist.subform.additem.label.yes","Tak"
+"itemslist.subform.additem.label.no","Nie"
+"itemslist.subform.additem.button.additem","Dodaj produkt"
+"itemslist.itemstable.heading","Lista produktów"
+"itemslist.itemstable.heading.id","ID"
+"itemslist.itemstable.heading.name","Nazwa"
+"itemslist.itemstable.heading.iscomposed","Złożony"
+"itemslist.itemstable.heading.actions",""
+"itemslist.itemstable.editbutton","Edytuj"
+"itemslist.itemstable.deletebutton","Usuń"

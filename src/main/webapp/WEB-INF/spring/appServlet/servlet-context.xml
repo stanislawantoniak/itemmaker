@@ -76,7 +76,4 @@
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
-	<!-- <beans:bean id="userSession" class="pl.essay.session.UserSession"> 
-		<aop:scoped-proxy /> </beans:bean> -->
-
 </beans:beans>

@@ -32,7 +32,7 @@
 	</beans:bean>
 	
 	<beans:bean id="languages" class="pl.essay.languages.Languages"
-		scope="singleton">
+		scope="singleton" init-method="init">
 		<beans:property name="languages">
 			<beans:list>
 				<beans:ref bean="polish" />

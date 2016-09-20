@@ -30,8 +30,8 @@ public class ItemDaoImpl implements ItemDao {
 			tx = session.beginTransaction();
 			if (item.getIsComposed()){
 				ItemComponent ic = new ItemComponent();
-				ic.setParentItem(item);
-				ic.setComponentItem((Item) session.load(Item.class, 1));
+				ic.setParent(item);
+				ic.setComponent((Item) session.load(Item.class, 1));
 				ic.setQuantity(5);
 				item.getItemComponents().add(ic);
 				session.save(item);
@@ -137,7 +137,11 @@ public class ItemDaoImpl implements ItemDao {
 		try{
 			tx = session.beginTransaction();
 			ItemComponent ic = (ItemComponent) session.load(ItemComponent.class, component);
-			//Item item = ic.getParentItem();
+			Item item = ic.getParent();
+			if (item.getItemComponents().size() == 1){//we are removing last component
+				item.setIsComposed(false);
+				session.update(item);
+			}
 			session.delete(ic);
 			tx.commit();
 		}catch (HibernateException e) {
@@ -159,7 +163,7 @@ public class ItemDaoImpl implements ItemDao {
 		try{
 			tx = session.beginTransaction();
 			ic = (ItemComponent) session.load(ItemComponent.class, id);
-			ic.getComponentItem();
+			ic.getComponent();
 			tx.commit();
 		}catch (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -176,7 +180,7 @@ public class ItemDaoImpl implements ItemDao {
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			//Item item = ic.getParentItem();
+			Item item = ic.getParent();
 			System.out.println("form itemDao.addItemComp::"+ic);
 			if (ic.getId() == 0){
 				session.persist(ic);
@@ -184,9 +188,10 @@ public class ItemDaoImpl implements ItemDao {
 			else{
 				session.update(ic);
 			}
-			//item.setItemComponents(item.getItemComponents());
-			//session.persist(item);
-			//session.save(item);
+			if (!item.getIsComposed()){
+				item.setIsComposed(true);
+				session.update(item);
+			}
 			tx.commit();
 		}catch (HibernateException e) {
 			if (tx!=null) tx.rollback();

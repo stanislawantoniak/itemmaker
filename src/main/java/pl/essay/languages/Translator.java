@@ -13,7 +13,6 @@ import org.springframework.core.io.Resource;
 
 import pl.essay.toolbox.CsvHelper;
 
-
 public class Translator {
 
 	@Autowired
@@ -37,35 +36,32 @@ public class Translator {
 	public void init() {
 		logger.info("getting translation file for language "+this.language+": "+this.translationFile );
 
-		//Resource resource = appContext.getResource(this.translationFile);
 		InputStream is = getClass().getClassLoader().getResourceAsStream(this.translationFile);
-		/*InputStream is = null;
-		try {
-			is = resource.getInputStream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (is != null)
-				try {
-					is.close();
-				} catch (IOException e) {
-					logger.error("", e);
-				}
-		}
-		 */
-		Map<String, String[]> tempMap = CsvHelper.getMapStringStringArrayFromIS(is);
 
-		for (Map.Entry<String,String[]> lineCsv: tempMap.entrySet()){
-			if (lineCsv.getValue().length == 2) //just skip bad lines
-				this.translations.put(lineCsv.getValue()[0].trim(), lineCsv.getValue()[1].trim());
+		if (is == null){
+			logger.error("no translation file found for language "+this.language+" checked file "+this.translationFile);
+		} else {
+			Map<String, String[]> tempMap = CsvHelper.getMapStringStringArrayFromIS(is);
+
+			for (Map.Entry<String,String[]> lineCsv: tempMap.entrySet()){
+				if (lineCsv.getValue().length == 2) //just skip bad lines
+					this.translations.put(lineCsv.getValue()[0].trim(), lineCsv.getValue()[1].trim());
+			}
+			logger.info("translation file for language "+this.language+" processed, "+this.translations.size()+" translation records read");
 		}
-		logger.info("translation file for laguage "+this.language+" processed, "+this.translations.size()+" translation records read");
 	}
 
 	public Map<String,String> getTranslations(){
-		for (Map.Entry<String,String> c : this.translations.entrySet())
-			logger.info("t: "+c.getKey()+" : "+c.getValue());
+		//for (Map.Entry<String,String> c : this.translations.entrySet())
+		//	logger.info("t: "+c.getKey()+" : "+c.getValue());
+		
 		return this.translations;
+	}
+	
+	public void addTranslations(Translator t){
+		for (Map.Entry<String,String> row : t.getTranslations().entrySet()){
+			if (! this.translations.containsKey(row.getKey()))
+				this.translations.put(row.getKey(), row.getValue());
+		}
 	}
 }

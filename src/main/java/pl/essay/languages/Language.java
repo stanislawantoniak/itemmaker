@@ -1,14 +1,11 @@
 package pl.essay.languages;
 
-import java.util.Map;
-
 public class Language {
 	private String name;
 	private String acronym;
 	private String flag;
 	
 	private Translator translator;
-	private Map<String, String> staticTexts; 
 		
 	public String getName(){
 		return this.name;
@@ -30,11 +27,15 @@ public class Language {
 		this.flag = l;
 	};
 	
-	public Map<String, String> getStaticTexts(){
-		return this.staticTexts;
-	}
 	public void setTranslator(Translator t){
 		this.translator = t;
-		this.staticTexts = this.translator.getTranslations();
+	}
+	
+	public Translator getTranslator(){
+		return this.translator;
+	}
+	
+	public void addTranslations(Language l){
+		this.translator.addTranslations(l.getTranslator());
 	}
 }

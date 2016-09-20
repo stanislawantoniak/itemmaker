@@ -1,16 +1,28 @@
-#generic;translations
+generic;translations
 "app.name","Item Maker 1.0"
 "leftpanel.menu.manageitems","Manage Items"
 "search.widget.text","Search"
 
-#sahsboard;translations
+sahsboard;translations
 "dashboard.content","Dashboard"
 
-#itemslist;translations
+itemslist;translations
 "itemslist.title","Items"
 "itemslist.form.heading","Manage Items"
-"itemslist.subform.additem.heading","Add Item"
-"itemslist.subform.additem.label.itemname","Name"
-"itemslist.subform.additem.label.iscomposed","Is composed"
-"itemslist.subform.additem.button.additem","Add Item"
+"itemslist.itemstable.heading","Item List"
+"itemslist.itemstable.heading.id","ItemID"
+"itemslist.itemstable.heading.name","Name"
+"itemslist.itemstable.heading.iscomposed","Is composed"
+"itemslist.itemstable.heading.actions","Actions"
+"itemslist.itemstable.editbutton","Edit"
+"itemslist.itemstable.deletebutton","Delete"
+edit form
+"edititem.heading.additem","Add Item"
+"edititem.heading.edititem","Edit Item"
+"edititem.label.itemname","Name"
+"edititem.button.save","Save"
+"edititem.button.cancel","Cancel"
+"editcomponents.button.add","Add Component"
+
+
 

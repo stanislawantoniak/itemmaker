@@ -21,18 +21,23 @@
 		<beans:property name="translator" ref="englishTranslator" />
 	</beans:bean>
 
-	<beans:bean id="englishTranslator" class="pl.essay.languages.Translator" init-method="init">
+	<beans:bean id="englishTranslator" class="pl.essay.languages.Translator"
+		init-method="init">
 		<beans:property name="language" value="English" />
 		<beans:property name="translationFile" value="/english.txt" />
 	</beans:bean>
-	
-	<beans:bean id="polishTranslator" class="pl.essay.languages.Translator" init-method="init">
+
+	<beans:bean id="polishTranslator" class="pl.essay.languages.Translator"
+		init-method="init">
 		<beans:property name="language" value="Polski" />
 		<beans:property name="translationFile" value="/polish.txt" />
 	</beans:bean>
-	
+
 	<beans:bean id="languages" class="pl.essay.languages.Languages"
 		scope="singleton" init-method="init">
+		<beans:property name="defaultLanguage">
+			<beans:ref bean="english" />
+		</beans:property>
 		<beans:property name="languages">
 			<beans:list>
 				<beans:ref bean="polish" />

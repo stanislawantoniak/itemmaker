@@ -1,22 +1,15 @@
 package pl.essay.languages;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 
 import pl.essay.toolbox.CsvHelper;
 
 public class Translator {
-
-	@Autowired
-	private ApplicationContext appContext;
 
 	protected static final Logger logger = LoggerFactory.getLogger(Translator.class);
 
@@ -28,6 +21,7 @@ public class Translator {
 	public void setLanguage(String l){
 		this.language = l;
 	}
+		
 	public void setTranslationFile(String l){
 		logger.info("setting translation file for language "+this.language+": "+ l );
 		this.translationFile = l;
@@ -52,8 +46,8 @@ public class Translator {
 	}
 
 	public Map<String,String> getTranslations(){
-		//for (Map.Entry<String,String> c : this.translations.entrySet())
-		//	logger.info("t: "+c.getKey()+" : "+c.getValue());
+		for (Map.Entry<String,String> c : this.translations.entrySet())
+			logger.info("t: "+c.getKey()+" : "+c.getValue());
 		
 		return this.translations;
 	}
@@ -61,6 +55,7 @@ public class Translator {
 	public void addTranslations(Translator t){
 		for (Map.Entry<String,String> row : t.getTranslations().entrySet()){
 			if (! this.translations.containsKey(row.getKey()))
+				logger.info("adding to "+this.language+" key "+row.getKey()+" from "+t.language);
 				this.translations.put(row.getKey(), row.getValue());
 		}
 	}

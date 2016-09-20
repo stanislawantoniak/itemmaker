@@ -5,16 +5,26 @@ import java.util.List;
 public class Languages {
 
 	private List<Language> languages;
+	private Language defaultLanguage;
 	
 	public void init(){
+		//System.out.println("init languages");
+		//System.out.println("default is"+this.getDefaultLanguage().getName());
 		for (Language l : this.languages){
-			if (l != this.getDefaultLanguage()) //comparing objects and that is ok!
-				l.addTranslations(this.getDefaultLanguage()); //add translations form default ie english 
+			//System.out.println("processing "+l.getName());
+			if (l != this.getDefaultLanguage()){ //comparing objects and that is ok!
+				//System.out.println(" languages different");
+				l.addTranslations(this.getDefaultLanguage()); //add translations form default ie english
+			}
 		}
 	}
 	
 	public void setLanguages(List<Language> x){
 		this.languages = x;
+	}
+	
+	public void setDefaultLanguage(Language l){
+		this.defaultLanguage = l;
 	}
 	
 	public List<Language> getLanguages(){
@@ -27,7 +37,9 @@ public class Languages {
 					return lang; 
 		return this.getDefaultLanguage();
 	}
+	
 	public Language getDefaultLanguage(){
-		return languages.get(0); //looks like hardcode - but sufficient for the demo
+		return this.defaultLanguage;
 	}
+	
 }

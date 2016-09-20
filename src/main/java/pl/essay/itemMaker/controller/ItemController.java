@@ -37,7 +37,7 @@ public class ItemController extends BaseController {
 	@Qualifier(value="itemService")
 	public void setItemService(ItemService ps){
 		this.itemService = ps;
-	}
+	} 
 	
 	@InitBinder
 	public void registerCustomEditors(WebDataBinder binder) {

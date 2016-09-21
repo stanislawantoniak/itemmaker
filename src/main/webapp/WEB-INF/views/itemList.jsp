@@ -19,7 +19,7 @@
 					<c:url var="addAction" value="/item/edit/0"></c:url>
 					<form action="${addAction}">
 						<button class="btn  btn-outline btn-primary" type="submit">
-							${__static__['itemslist.subform.additem.button.additem']}</button>
+							${__static__['itemslist.form.heading.button.additem']}</button>
 					</form>
 
 				</div>

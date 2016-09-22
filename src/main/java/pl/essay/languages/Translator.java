@@ -46,8 +46,8 @@ public class Translator {
 	}
 
 	public Map<String,String> getTranslations(){
-		for (Map.Entry<String,String> c : this.translations.entrySet())
-			logger.info("t: "+c.getKey()+" : "+c.getValue());
+		//for (Map.Entry<String,String> c : this.translations.entrySet())
+		//	logger.info("t: "+c.getKey()+" : "+c.getValue());
 		
 		return this.translations;
 	}

@@ -4,6 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ public class ItemDaoImpl implements ItemDao {
 	private static final Logger logger = LoggerFactory.getLogger(ItemDaoImpl.class);
 
 	private static SessionFactory sessionFactory; 
+	@Autowired
 	public  void setSessionFactory(SessionFactory sf){
 		sessionFactory = sf;
 	}

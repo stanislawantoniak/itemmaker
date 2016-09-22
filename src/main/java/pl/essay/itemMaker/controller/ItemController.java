@@ -33,8 +33,7 @@ public class ItemController extends BaseController {
 
 	private ItemService itemService;
 
-	@Autowired(required=true)
-	@Qualifier(value="itemService")
+	@Autowired
 	public void setItemService(ItemService ps){
 		this.itemService = ps;
 	} 

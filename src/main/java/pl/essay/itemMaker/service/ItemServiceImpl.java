@@ -2,42 +2,48 @@ package pl.essay.itemMaker.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import pl.essay.itemMaker.dao.ItemDao;
 import pl.essay.itemMaker.model.Item;
 import pl.essay.itemMaker.model.ItemComponent;
 
+@Service
 public class ItemServiceImpl implements ItemService{
 
-	private ItemDao itemDAO;
+	private ItemDao itemDao;
+	
+	@Autowired
 	public void setItemDAO(ItemDao i){
-		this.itemDAO = i;
+		this.itemDao = i;
 	}
 	
 	public void updateItem(Item i){
-		this.itemDAO.updateItem(i);
+		this.itemDao.updateItem(i);
 	}
 	public int addItem(Item i){
-		return this.itemDAO.addItem(i);
+		return this.itemDao.addItem(i);
 	}
 		public List<Item> listItems(){
-		return this.itemDAO.listItems();
+		return this.itemDao.listItems();
 	}
 	public Item getItemById(int id){
-		return this.itemDAO.getItemById(id);
+		return this.itemDao.getItemById(id);
 	}
 	public void removeItem(int id){
-		this.itemDAO.removeItem(id);
+		this.itemDao.removeItem(id);
 	}
 	
 	public void removeItemComponent(int component){
-		this.itemDAO.removeItemComponent(component);
+		this.itemDao.removeItemComponent(component);
 	}
 	
 	public ItemComponent getItemComponent(int id){
-		return this.itemDAO.getItemComponentById(id);
+		return this.itemDao.getItemComponentById(id);
 	}
 	public int addItemComponent(ItemComponent component){
-		return this.itemDAO.addItemComponent(component);
+		return this.itemDao.addItemComponent(component);
 	}
 	public List<ItemComponent> listItemComponent(int itemid){
 		Item item = this.getItemById(itemid);

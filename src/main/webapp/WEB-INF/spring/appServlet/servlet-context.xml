@@ -27,17 +27,17 @@
 		cache-period="31556926" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory 
+		in the /WEB-INF/views directory --> 
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	-->
+	
 
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/itemsmaker?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
 		<beans:property name="username" value="root" />

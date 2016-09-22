@@ -10,8 +10,9 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer{
+public class SecurityInitializer {//extends AbstractSecurityWebApplicationInitializer{
 	
+/*
 	@Override 
 	protected void afterSpringSecurityFilterChain(ServletContext sc){
 		super.afterSpringSecurityFilterChain(sc);
@@ -28,5 +29,6 @@ public class SecurityInitializer extends AbstractSecurityWebApplicationInitializ
 		
 		System.out.println("afterSpringSecurityFilterChain");
 	}
+*/
 
 }

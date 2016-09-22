@@ -14,12 +14,12 @@
 
 			<div class="row">
 				<div class="col-lg-6">
-					<h1 class="page-header">${__static__['itemslist.form.heading']}</h1>
+					<h1 class="page-header">${__static__['itemslist.heading']}</h1>
 
 					<c:url var="addAction" value="/item/edit/0"></c:url>
 					<form action="${addAction}">
 						<button class="btn  btn-outline btn-primary" type="submit">
-							${__static__['itemslist.form.heading.button.additem']}</button>
+							${__static__['itemslist.heading.button.additem']}</button>
 					</form>
 
 				</div>

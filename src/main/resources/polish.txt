@@ -3,23 +3,24 @@ generic;translations
 "leftpanel.menu.manageitems","Zarządzanie produktami"
 "search.widget.text","Szukaj..."
 
-sahsboard;translations
+dahsboard;translations
 "dashboard.content","Dashboard"
 
 itemslist;translations
 "itemslist.title","Produkty"
-"itemslist.form.heading","Zarządzaj produktami"
-"itemslist.subform.additem.heading","Dodaj produkt"
-"itemslist.subform.edititem.heading","Edytuj produkt #"
-"itemslist.subform.additem.label.itemname","Nazwa "
-"itemslist.subform.additem.label.iscomposed","Czy złożony"
-"itemslist.subform.additem.label.yes","Tak"
-"itemslist.subform.additem.label.no","Nie"
-"itemslist.subform.additem.button.additem","Dodaj produkt"
-"itemslist.itemstable.heading","Lista produktów"
-"itemslist.itemstable.heading.id","ID"
+"itemslist.heading","Zarządzaj produktami"
+"itemslist.heading.button.additem","Dodaj produkt"
+"itemslist.itemstable.heading","Item List"
+"itemslist.itemstable.heading.id","Kod"
 "itemslist.itemstable.heading.name","Nazwa"
 "itemslist.itemstable.heading.iscomposed","Złożony"
 "itemslist.itemstable.heading.actions",""
 "itemslist.itemstable.editbutton","Edytuj"
 "itemslist.itemstable.deletebutton","Usuń"
+edit form
+"edititem.heading.additem","Dodawanie produktu"
+"edititem.heading.edititem","Edycja produktu"
+"edititem.label.itemname","Nazwa"
+"edititem.button.save","Zapisz"
+"edititem.button.cancel","Anuluj"
+"editcomponents.button.add","Dodaj komponent"

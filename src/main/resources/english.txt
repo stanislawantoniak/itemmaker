@@ -8,8 +8,8 @@ sahsboard;translations
 
 itemslist;translations
 "itemslist.title","Items"
-"itemslist.form.heading","Manage Items"
-"itemslist.form.heading.button.additem","Add Item"
+"itemslist.heading","Manage Items"
+"itemslist.heading.button.additem","Add Item"
 "itemslist.itemstable.heading","Item List"
 "itemslist.itemstable.heading.id","ItemID"
 "itemslist.itemstable.heading.name","Name"

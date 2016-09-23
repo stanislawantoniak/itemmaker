@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
 <html>
 <head>
 <title>Edit item</title>
@@ -45,16 +44,15 @@
 									<div class="form-group">
 										<form:label path="name">
 											${__static__['edititem.label.itemname'] }
-										</form:label>
+										</form:label>            
 										<form:input class="form-control" path="name" />
-										<form:errors path="name"/>
+										<form:errors path="name" />
 									</div>
 									<button class="btn  btn-outline btn-primary" type="submit">
-										${__static__['edititem.button.save'] }
-									</button>
+										${__static__['edititem.button.save'] }</button>
 									<c:url var="goToItems" value="/items"></c:url>
-									<a href="${goToItems}" class="btn btn-default btn-sm"> ${__static__['edititem.button.cancel'] }
-									</a>
+									<a href="${goToItems}" class="btn btn-default btn-sm">
+										${__static__['edititem.button.cancel'] } </a>
 								</form:form>
 							</div>
 						</div>
@@ -116,7 +114,8 @@
 				</c:if>
 			</div>
 		</div>
+	</div>
 
-		<%@ include file="endingscripts.jsp"%>
+	<%@ include file="endingscripts.jsp"%>
 </body>
 </html>

@@ -20,6 +20,8 @@ public class UserSession {
 	@Autowired(required=true)
 	@Qualifier(value="languages")
 	private Languages languages;
+	
+	String name;
 		
 	public UserSession(){
 	}
@@ -36,4 +38,12 @@ public class UserSession {
 	public Language getLanguageSelected(){
 		return this.languageSelected;
 	}
+	
+	public String getName(){
+		return this.name;
+	}
+	public void setName(String n){
+		this.name = n;
+	}
+	
 }

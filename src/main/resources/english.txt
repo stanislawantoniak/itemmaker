@@ -6,6 +6,14 @@ generic;translations
 sahsboard;translations
 "dashboard.content","Dashboard"
 
+"login.title","Login Page"
+"login.pleasesignin","Please Sign In"
+"login.username.label","Enter Name"
+"login.pass.label","Enter password"
+"login.button.login","Log In"
+"login.error.message","Invalid username or password"
+"navbar.menu.action.logout","Log Out"
+
 itemslist;translations
 "itemslist.title","Items"
 "itemslist.heading","Manage Items"

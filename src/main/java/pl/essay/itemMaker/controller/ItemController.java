@@ -105,7 +105,7 @@ public class ItemController extends BaseController {
 
 			this.itemService.addItemComponent(itemComponent);
 
-			return  "redirect:/edit/"+itemComponent.getParent().getId();
+			return  "redirect:/item/edit/"+itemComponent.getParent().getId();
 		}
 	}
 

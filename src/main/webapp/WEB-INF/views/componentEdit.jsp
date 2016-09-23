@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
 <html>
 <head>
 <title>Edit component</title>
@@ -38,8 +37,9 @@
 										<form:select class="form-control" path="component">
 											<option value="">--Select Item--</option>
 											<c:forEach items="${allItems}" var="i">
+												 ${i.key} : ${component.id} => ${i.key eq itemComponent.component.id}<br>
 												<c:choose>
-													<c:when test="${i.key eq component.id}">
+													<c:when test="${i.key eq itemComponent.component.id}">
 														<option value="${i.key}" selected="true">${i.value}</option>
 													</c:when>
 													<c:otherwise>

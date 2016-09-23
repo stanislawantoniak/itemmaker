@@ -12,12 +12,20 @@ public class ItemMakerPropertyEditor extends PropertyEditorSupport {
 	public ItemMakerPropertyEditor(ItemService ps){
 		this.itemService = ps;
 	}
-	//transform item id inti Item object 
+	//transform item id into Item object 
     public void setAsText(String id) {
     	//System.out.println("inside property editor id: "+id);
     	//System.out.println(this.itemService);
-    	Item item = this.itemService.getItemById(Integer.valueOf(id)); 
-        setValue(item);
-        System.out.println(item);
+    	
+    	try {
+    		int i = Integer.valueOf(id);
+    		Item item = this.itemService.getItemById(Integer.valueOf(id)); 
+            setValue(item);
+            System.out.println(item);
+            
+    	} catch (Exception e) {
+    		setValue(null);
+    	}
+    	    	
     }
 }

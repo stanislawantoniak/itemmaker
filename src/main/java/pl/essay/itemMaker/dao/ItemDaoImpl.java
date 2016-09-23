@@ -182,8 +182,11 @@ public class ItemDaoImpl implements ItemDao {
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			Item item = ic.getParent();
+			
+			int i = ic.getParent().getId();
+			Item item = (Item) session.load(Item.class, i);
 			System.out.println("form itemDao.addItemComp::"+ic);
+			System.out.println("form itemDao.addItemComp - item::"+item);
 			if (ic.getId() == 0){
 				session.persist(ic);
 			}

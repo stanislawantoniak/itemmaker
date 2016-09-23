@@ -5,14 +5,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import pl.essay.security.WebSecurityConfig;
+//public class ApplicationConfig{}
 
-public class ApplicationConfig{}
-/*
 @EnableWebMvc
 @Configuration
 @ComponentScan({ 
-	"pl.essay.security",
 	"pl.essay.itemMaker.controller",
 	"pl.essay.itemMaker.service",
 	"pl.essay.itemMaker.dao", 
@@ -21,7 +18,7 @@ public class ApplicationConfig{}
 
 @Import({ WebSecurityConfig.class })
 @ImportResource({
-	"classpath:/servlet-context.xml",
+	"classpath:/datasource-config.xml",
 	"classpath:/language-beans.xml"
 })
 public class ApplicationConfig {
@@ -30,10 +27,9 @@ public class ApplicationConfig {
 	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/pages/");
+		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
 
 }
-*/

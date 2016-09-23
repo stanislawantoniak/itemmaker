@@ -1,4 +1,4 @@
-package pl.essay.security;
+package pl.essay.itemMaker.config;
 
 import java.util.Map;
 
@@ -10,17 +10,17 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-public class SecurityInitializer {//extends AbstractSecurityWebApplicationInitializer{
+public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer{
 	
-/*
+
 	@Override 
 	protected void afterSpringSecurityFilterChain(ServletContext sc){
 		super.afterSpringSecurityFilterChain(sc);
 		
-		Map<String, FilterRegistration> m = (Map<String, FilterRegistration>) sc.getFilterRegistrations();
+		//Map<String, FilterRegistration> m = (Map<String, FilterRegistration>) sc.getFilterRegistrations();
 		
-		for (Map.Entry<String, FilterRegistration> f : m.entrySet())
-			System.out.println("key: "+f.getKey()+" val: "+f.getValue().getClassName());
+		//for (Map.Entry<String, FilterRegistration> f : m.entrySet())
+		//	System.out.println("key: "+f.getKey()+" val: "+f.getValue().getClassName());
 		
 		//ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext( sc );
 		//System.out.println(ctx.toString());
@@ -29,6 +29,6 @@ public class SecurityInitializer {//extends AbstractSecurityWebApplicationInitia
 		
 		System.out.println("afterSpringSecurityFilterChain");
 	}
-*/
+
 
 }

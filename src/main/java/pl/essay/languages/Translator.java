@@ -21,7 +21,7 @@ public class Translator {
 	public void setLanguage(String l){
 		this.language = l;
 	}
-		
+
 	public void setTranslationFile(String l){
 		logger.info("setting translation file for language "+this.language+": "+ l );
 		this.translationFile = l;
@@ -38,25 +38,29 @@ public class Translator {
 			Map<String, String[]> tempMap = CsvHelper.getMapStringStringArrayFromIS(is);
 
 			for (Map.Entry<String,String[]> lineCsv: tempMap.entrySet()){
-				if (lineCsv.getValue().length == 2) //just skip bad lines
+				if (lineCsv.getValue().length == 2) {//just skip bad lines
 					this.translations.put(lineCsv.getValue()[0].trim(), lineCsv.getValue()[1].trim());
+					logger.info(lineCsv.getValue()[0]+":"+lineCsv.getValue()[1]);
+				}
 			}
 			logger.info("translation file for language "+this.language+" processed, "+this.translations.size()+" translation records read");
 		}
 	}
 
 	public Map<String,String> getTranslations(){
+		//logger.info("getting translations for language: "+this.language);
 		//for (Map.Entry<String,String> c : this.translations.entrySet())
-		//	logger.info("t: "+c.getKey()+" : "+c.getValue());
-		
+			//logger.info("line: "+c.getKey()+" : "+c.getValue());
+
 		return this.translations;
 	}
-	
-	public void addTranslations(Translator t){
-		for (Map.Entry<String,String> row : t.getTranslations().entrySet()){
-			if (! this.translations.containsKey(row.getKey()))
-				logger.info("adding to "+this.language+" key "+row.getKey()+" from "+t.language);
+
+	public void addTranslations(Translator fromTranslator){
+		for (Map.Entry<String,String> row : fromTranslator.getTranslations().entrySet()){
+			if (! this.translations.containsKey(row.getKey())){
+				logger.info("adding to "+this.language+" key "+row.getKey()+" from "+fromTranslator.language);
 				this.translations.put(row.getKey(), row.getValue());
+			}
 		}
 	}
 }

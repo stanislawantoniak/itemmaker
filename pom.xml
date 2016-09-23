@@ -6,7 +6,7 @@
 	<packaging>war</packaging>
 	<version>0</version>
 	<properties>
-		<java-version>1.7</java-version>
+		<java-version>1.8</java-version>
 		<org.springframework-version>4.3.3.RELEASE</org.springframework-version>
 		<org.spring.security-version>4.1.3.RELEASE</org.spring.security-version>
 		<hibernate.version>5.2.2.Final</hibernate.version>
@@ -32,7 +32,8 @@
 				<version>2.6</version>
 				<configuration>
 					<warName>${project.artifactId}</warName>
-					<webappDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/${project.artifactId}</webappDirectory>
+					<!-- <webappDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/${project.artifactId}</webappDirectory>
+					 -->
 					<outputDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps</outputDirectory>
 				</configuration>
 			</plugin>

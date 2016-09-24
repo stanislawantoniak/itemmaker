@@ -25,7 +25,7 @@ public class ItemServiceImpl implements ItemService{
 	public int addItem(Item i){
 		return this.itemDao.addItem(i);
 	}
-		public List<Item> listItems(){
+	public List<Item> listItems(){
 		return this.itemDao.listItems();
 	}
 	public Item getItemById(int id){

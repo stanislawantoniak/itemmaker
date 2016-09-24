@@ -11,9 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import pl.essay.itemMaker.service.UserServiceImpl;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -37,11 +41,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
 		System.out.println("configure global security");	
-		auth.inMemoryAuthentication()
-		.withUser("stan").password("pass").roles("USER").and()
-		.withUser("adm").password("pass").roles("USER", "ADMIN");
+		//auth
+		//.inMemoryAuthentication()
+		//.withUser("stan").password("pass").roles("USER").and()
+		//.withUser("adm").password("pass").roles("USER", "ADMIN");
 	}
 
+	@Bean
+	public UserServiceImpl userServiceImpl() {
+		return new UserServiceImpl();
+	}
+	
+	
 /*	@Bean
 	public AuthenticationTrustResolver getAuthenticationTrustResolver() {
 		return super.getAuthenticationTrustResolver();

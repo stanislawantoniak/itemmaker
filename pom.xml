@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>itemMaker</groupId>
 	<artifactId>itemMaker</artifactId>
-	<packaging>war</packaging>  
+	<packaging>war</packaging>
 	<version>0</version>
 	<properties>
 		<java-version>1.8</java-version>
@@ -14,6 +14,7 @@
 		<org.aspectj-version>1.8.9</org.aspectj-version>
 		<org.slf4j-version>1.7.21</org.slf4j-version>
 	</properties>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -32,8 +33,7 @@
 				<version>2.6</version>
 				<configuration>
 					<warName>${project.artifactId}</warName>
-					<!-- <webappDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/${project.artifactId}</webappDirectory>
-					 -->
+					<!-- <webappDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/${project.artifactId}</webappDirectory> -->
 					<outputDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps</outputDirectory>
 				</configuration>
 			</plugin>
@@ -52,6 +52,15 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>

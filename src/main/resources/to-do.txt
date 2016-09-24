@@ -1,0 +1,12 @@
+1. dodaæ grid do users, obs³ugê ról
+2. poprawiæ userdetails ¿eby zwraca³o autorities
+3. dodac preauthorize na zarz¹dzanie u¿ytkownikami (service)
+4. wy³¹czyæ widocznoœæ w menu
+
+
+dojo grid - przy tym chyba resta trzeba zrobiæ
+po³¹czenie z jakimœ soap zewnêtrznym 
+
+
+  
+

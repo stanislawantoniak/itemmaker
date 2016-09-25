@@ -1,6 +1,7 @@
 generic;translations
 "app.name","Item Maker 1.0"
 "leftpanel.menu.manageitems","Zarządzanie produktami"
+"leftpanel.menu.manageUsers", "Zarządzanie użytkownikami"
 "search.widget.text","Szukaj..."
 
 dahsboard;translations

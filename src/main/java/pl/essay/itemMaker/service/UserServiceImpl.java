@@ -6,7 +6,6 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -14,36 +13,41 @@ import pl.essay.itemMaker.model.User;
 import pl.essay.itemMaker.dao.UserDao;
 
 @Service
-public class UserServiceImpl implements UserDetailsService{
+public class UserServiceImpl implements UserService{
 
 	private UserDao userDao;
-	
+
+	//init for dev purposes
+	//just to have a user in db in case of db re-creation
+	//to fix
 	@PostConstruct
 	public void init(){
 		UserDetails u = null;
+		String name = "stan@wp.pl";
 		try {
-			u = this.loadUserByUsername("stan");
+			u = this.loadUserByUsername(name);
 		} catch( UsernameNotFoundException e ) {
 			System.out.println(e.getLocalizedMessage());
-			User user = new User("stan@wp.pl","123456");
+			User user = new User(name,"123456",User.roleAdmin,true);
 			this.addUser(user);
 			System.out.println("user : "+user+" added to db");
 		}
 	}
-	
+
 	@Autowired
 	public void setUserDAO(UserDao i){
 		this.userDao = i;
 	}
-	
+
 	public void updateUser(User i){
 		this.userDao.updateUser(i);
 	}
 	public long addUser(User i){
 		return this.userDao.addUser(i);
 	}
-		public List<User> listUsers(){
+	public List<User> listUsers(){
 		return this.userDao.listUsers();
+
 	}
 	public User getUserById(int id){
 		return this.userDao.getUserById(id);

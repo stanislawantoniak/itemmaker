@@ -3,7 +3,7 @@
 3. dodac preauthorize na zarz¹dzanie u¿ytkownikami (service)
 4. wy³¹czyæ widocznoœæ w menu
 
-
+unit testy
 dojo grid - przy tym chyba resta trzeba zrobiæ
 po³¹czenie z jakimœ soap zewnêtrznym 
 

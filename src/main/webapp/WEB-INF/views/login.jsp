@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>${__static__['login.title']}</title>
-<%@ include file="cssinheader.jsp"%>
+<%@ include file="/WEB-INF/views/common/cssinheader.jsp"%>
 </head>
 <body>
 	<div class="container">
@@ -65,6 +65,6 @@
 		</div>
 	</div>
 
-	<%@ include file="endingscripts.jsp"%>
+	<%@ include file="/WEB-INF/views/common/endingscripts.jsp"%>
 </body>
 </html>

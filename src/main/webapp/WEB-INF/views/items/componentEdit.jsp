@@ -4,11 +4,11 @@
 <html>
 <head>
 <title>Edit component</title>
-<%@ include file="cssinheader.jsp"%>
+<%@ include file="/WEB-INF/views/common/cssinheader.jsp"%>
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="navi.jsp"%>
+		<%@ include file="/WEB-INF/views/common/navi.jsp"%>
 		<div id="page-wrapper" style="min-height: 618px;">
 
 			<div class="row">
@@ -24,7 +24,7 @@
 							(#${item.id})</div>
 						<div class="panel-body">
 
-							<c:url var="updateAction" value="/itemComponent/update"></c:url>
+							<c:url var="updateAction" value="/items/component/update"></c:url>
 							<form:form id="component" role="form" action="${updateAction}"
 								modelAttribute="itemComponent">
 								<form:hidden path="id" />
@@ -37,7 +37,6 @@
 										<form:select class="form-control" path="component">
 											<option value="">--Select Item--</option>
 											<c:forEach items="${allItems}" var="i">
-												 ${i.key} : ${component.id} => ${i.key eq itemComponent.component.id}<br>
 												<c:choose>
 													<c:when test="${i.key eq itemComponent.component.id}">
 														<option value="${i.key}" selected="true">${i.value}</option>
@@ -59,9 +58,18 @@
 									<form:input class="form-control" path="quantity" />
 									<form:errors path="quantity" />
 								</div>
-								<button class="btn  btn-outline btn-primary" type="submit">
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+								<button class="${buttonOutlineClasses }" type="submit">
 									<spring:message text="Save component" />
 								</button>
+								<c:url var="cancelAction" value="/items/item/edit/${item.id}"></c:url>
+								<form action="${cancelAction}">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+									<button class="${buttonDefaultClasses }" type="submit">${__static__['component.editform.button.cancel']}</button>
+								</form>
+
 							</form:form>
 						</div>
 					</div>
@@ -70,6 +78,6 @@
 		</div>
 	</div>
 
-	<%@ include file="endingscripts.jsp"%>
+	<%@ include file="/WEB-INF/views/common/endingscripts.jsp"%>
 </body>
 </html>

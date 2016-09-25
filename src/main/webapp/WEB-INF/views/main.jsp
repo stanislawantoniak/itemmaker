@@ -4,11 +4,11 @@
 <html>
 <head>
 <title>Item Maker Dashboard</title>
-<%@ include file="cssinheader.jsp"%>
+<%@ include file="/WEB-INF/views/common/cssinheader.jsp"%>
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="navi.jsp"%>
+		<%@ include file="/WEB-INF/views/common/navi.jsp"%>
 		<div id="page-wrapper" style="min-height: 618px;">
 
 			<div class="row">
@@ -19,6 +19,6 @@
 		</div>
 	</div>
 
-	<%@ include file="endingscripts.jsp"%>
+	<%@ include file="/WEB-INF/views/common/endingscripts.jsp"%>
 </body>
 </html>

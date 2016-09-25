@@ -63,10 +63,12 @@ public class UserDaoImpl implements UserDao {
 	public List<User> listUsers( ){
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		List<User> Users = null;
+		List<User> users = null;
 		try{
 			tx = session.beginTransaction();
-			Users = (List<User>) session.createQuery("FROM User").getResultList();
+			users = (List<User>) session.createQuery("FROM User").getResultList();
+			//for (User u: users)
+				//System.out.println(u);
 			tx.commit();
 		}catch (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -74,7 +76,7 @@ public class UserDaoImpl implements UserDao {
 		}finally {
 			session.close(); 
 		}
-		return Users;
+		return users;
 	}
 
 	public void removeUser(int i){
@@ -99,6 +101,7 @@ public class UserDaoImpl implements UserDao {
 		try{
 			tx = session.beginTransaction();
 			user = (User) session.load(User.class, i);
+			user.getId();//load object - it is lazy loaded
 			tx.commit();
 		}catch (HibernateException e) {
 			if (tx!=null) tx.rollback();
@@ -119,6 +122,7 @@ public class UserDaoImpl implements UserDao {
 				.createQuery("select u from User u where name = :name")
 				.setParameter("name", name)
 				.getSingleResult();
+			user.getId();//load object - it is lazy loaded
 		} catch ( NoResultException e) {
 			logger.error("", e);
 		} finally {

@@ -7,7 +7,7 @@
 	<li class="dropdown"><a
 		class="dropdown-toggle  ${languageSelectorClass}" href="#"
 		data-toggle="dropdown" aria-expanded="true"> <img
-			src="<c:url value="/resources/${user.languageSelected.flag}"/>" /> <i
+			src="<c:url value="/resources/${sessionUser.languageSelected.flag}"/>" /> <i
 			class="fa fa-caret-down"></i>
 	</a>
 		<ul class="dropdown-menu dropdown-alerts">
@@ -21,9 +21,9 @@
 		</ul></li>
 
 	<li class="dropdown"><a class="dropdown-toggle active" href="#"
-		data-toggle="dropdown" aria-expanded="true"> ${user.name} <i
+		data-toggle="dropdown" aria-expanded="true"> ${sessionUser.name} <i
 			class="fa fa-caret-down"></i>
-	</a> <c:url value="/logout" var="logout" />
+	</a> <c:url value="/login?logout" var="logout" />
 		<ul class="dropdown-menu dropdown-user">
 			<li><a href="${logout}"><i class="fa fa-sign-out fa-fw"></i> ${__static__['navbar.menu.action.logout']}</a></li>
 		</ul></li>

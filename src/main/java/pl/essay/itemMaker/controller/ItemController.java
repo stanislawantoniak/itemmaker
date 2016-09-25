@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,12 +36,12 @@ public class ItemController extends BaseController {
 	public void setItemService(ItemService ps){
 		this.itemService = ps;
 	} 
-	
+
 	@InitBinder
 	public void registerCustomEditors(WebDataBinder binder) {
-	    binder.registerCustomEditor(Item.class, null, new ItemMakerPropertyEditor(this.itemService));
+		binder.registerCustomEditor(Item.class, null, new ItemMakerPropertyEditor(this.itemService));
 	}
-	
+
 	@RequestMapping(value = "/items", method = RequestMethod.GET)
 	public String listItems(Model model) {
 
@@ -53,10 +52,10 @@ public class ItemController extends BaseController {
 
 		model.addAttribute("itemsList", theList);
 
-		return "itemList";
+		return "items/itemList";
 	}
 
-	@RequestMapping(value= "/item/update", method = RequestMethod.POST)
+	@RequestMapping(value= "/items/item/update", method = RequestMethod.POST)
 	public String updateItem(@Valid @ModelAttribute("item") Item item,  
 			BindingResult result, //must follow modelattribute!!!!
 			RedirectAttributes redirectAttributes,
@@ -67,10 +66,10 @@ public class ItemController extends BaseController {
 			this.addGenericDataToModel(model);
 			//disable language selector - because staying on the same url and it doesnt support RequestMethod.GET
 			model.addAttribute("languageSelectorClass","disabled"); 
-			
+
 			model.addAttribute("item", item);
 			model.addAttribute("itemComponents", this.itemService.listItemComponent(item.getId()));
-			return "itemEdit";
+			return "items/itemEdit";
 		} else {
 			if (item.getId() == 0)
 				this.itemService.addItem(item);
@@ -81,7 +80,7 @@ public class ItemController extends BaseController {
 	}
 
 	//update add component
-	@RequestMapping(value= "/itemComponent/update", method = RequestMethod.POST)
+	@RequestMapping(value= "/items/component/update", method = RequestMethod.POST)
 	public String updateItemComponent(@Valid @ModelAttribute("itemComponent") ItemComponent itemComponent,
 			BindingResult result,
 			Model model,
@@ -89,37 +88,39 @@ public class ItemController extends BaseController {
 
 		if (result.hasErrors()){
 			this.addGenericDataToModel(model);
-			
+
 			System.out.println("component: "+itemComponent.getComponent());
 			System.out.println("parent: "+itemComponent.getParent());
-			
+
 			//disable language selector - because staying on the same url and it doesnt support RequestMethod.GET
 			model.addAttribute("languageSelectorClass","disabled"); 
-			
-			model.addAttribute("allItems", getItemListForSelect());
+
+			model.addAttribute("allItems", getItemListForSelect(itemComponent.getParent()));
 			model.addAttribute("item", itemComponent.getParent());
 			model.addAttribute("itemComponent", itemComponent);
-			
-			return "componentEdit";
+
+			return "items/componentEdit";
 		} else {
 
 			this.itemService.addItemComponent(itemComponent);
 
-			return  "redirect:/item/edit/"+itemComponent.getParent().getId();
+			return  "redirect:/items/item/edit/"+itemComponent.getParent().getId();
 		}
 	}
 
-	@RequestMapping("/item/deleteComponent/{id}")
+	@RequestMapping("/items/component/delete/{id}")
 	public String deleteItemComponent(@PathVariable("id") int id){
 		ItemComponent ic = this.itemService.getItemComponent(id);
 		Item item = ic.getParent();
 		if( id != 0){ //never should be zero 
 			this.itemService.removeItemComponent(id);
 		}
-		return "redirect:/item/edit/"+item.getId();
+		return "redirect:/items/item/edit/"+item.getId();
 	}
 
-	@RequestMapping("/item/addComponent/{id}")
+	//edit existing component
+	//in path id component id passed
+	@RequestMapping("/items/component/add/{id}")
 	public String addItemComponent(@PathVariable("id") int itemId, Model model){
 		logger.info("from controller.addItemComponent");
 
@@ -128,40 +129,52 @@ public class ItemController extends BaseController {
 		ItemComponent ic = new ItemComponent();
 		Item item = this.itemService.getItemById(itemId);
 		ic.setParent(item);
-		model.addAttribute("allItems", getItemListForSelect());
+
+		model.addAttribute("allItems", getItemListForSelect(item));
 		model.addAttribute("item", item);
 		model.addAttribute("itemComponent", ic);
-		return "componentEdit";
+		return "items/componentEdit";
 	}
 
-	protected Map<String, String> getItemListForSelect() {
+	//#to do
+	//check for any circular reference in item components
+	//a us composed of b, b is composed of a
+	protected Map<String, String> getItemListForSelect(Item exclude) {
 		Map<String,String> allItems = new LinkedHashMap<String, String>();
 		Map<String,String> notSorted = new TreeMap<String, String>();
-		for (Item i: this.itemService.listItems())
-			notSorted.put(i.getName(), ""+i.getId()); //sort by names
+		for (Item i: this.itemService.listItems()){
+			if (i.getId() != exclude.getId()) 
+				notSorted.put(i.getName(), ""+i.getId()); //sort by names
+		}
 		for (Map.Entry<String, String> i : notSorted.entrySet())
 			allItems.put(i.getValue(), i.getKey()+" (#"+i.getValue()+")");//put in linked map to save order
 		return allItems;
 	}
-	@RequestMapping("/item/editComponent/{id}")
+
+	//edit existing component
+	//in path id item id passed
+	@RequestMapping("/items/component/edit/{id}")
 	public String editItemComponent(@PathVariable("id") int id, Model model){
 		this.addGenericDataToModel(model);
 
 		ItemComponent ic = this.itemService.getItemComponent(id);
 		Item item = ic.getParent();
-		model.addAttribute("allItems", getItemListForSelect());
+
+		model.addAttribute("allItems", getItemListForSelect(item));
 		model.addAttribute("item", item);
 		model.addAttribute("itemComponent", ic);
-		return "componentEdit";
+		return "items/componentEdit";
 	}
 
-	@RequestMapping("/remove/{id}")
+	//to do
+	//check if not used in other items
+	@RequestMapping("/items/item/remove/{id}")
 	public String removeItem(@PathVariable("id") int id){
 		this.itemService.removeItem(id);
 		return "redirect:/items";
 	}
 
-	@RequestMapping("/item/edit/{id}")
+	@RequestMapping("/items/item/edit/{id}")
 	public String editItem(@PathVariable("id") int id, Model model){
 		logger.info("from controller.editItem");
 		this.addGenericDataToModel(model);
@@ -169,6 +182,6 @@ public class ItemController extends BaseController {
 		model.addAttribute("item", (id != 0 ? this.itemService.getItemById(id) : new Item()));
 		if (id != 0 )
 			model.addAttribute("itemComponents", this.itemService.listItemComponent(id));
-		return "itemEdit";
+		return "items/itemEdit";
 	}
 }

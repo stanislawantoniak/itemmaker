@@ -4,11 +4,11 @@
 <html>
 <head>
 <title>Edit item</title>
-<%@ include file="cssinheader.jsp"%>
+<%@ include file="/WEB-INF/views/common/cssinheader.jsp"%>
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="navi.jsp"%>
+		<%@ include file="/WEB-INF/views/common/navi.jsp"%>
 		<div id="page-wrapper" style="min-height: 618px;">
 
 			<div class="row">
@@ -37,7 +37,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-lg-12">
-								<c:url var="updateAction" value="/item/update"></c:url>
+								<c:url var="updateAction" value="/items/item/update"></c:url>
 								<form:form role="form" action="${updateAction}"
 									modelAttribute="item">
 									<form:hidden path="id" />
@@ -48,10 +48,11 @@
 										<form:input class="form-control" path="name" />
 										<form:errors path="name" />
 									</div>
-									<button class="btn  btn-outline btn-primary" type="submit">
+									<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+									<button class="${buttonOutlineClasses }" type="submit">
 										${__static__['edititem.button.save'] }</button>
 									<c:url var="goToItems" value="/items"></c:url>
-									<a href="${goToItems}" class="btn btn-default btn-sm">
+									<a href="${goToItems}" class="${buttonDefaultClasses }">
 										${__static__['edititem.button.cancel'] } </a>
 								</form:form>
 							</div>
@@ -76,9 +77,9 @@
 
 										<tbody>
 											<c:forEach items="${itemComponents}" var="itemComponent">
-												<c:url var="editComponentAction" value="/item/editComponent"></c:url>
+												<c:url var="editComponentAction" value="/item/component/edit"></c:url>
 												<c:url var="deleteComponentAction"
-													value="/item/deleteComponent"></c:url>
+													value="/items/component/delete"></c:url>
 												<tr>
 													<td>${itemComponent.componentName}
 														(#${itemComponent.componentId})</td>
@@ -86,13 +87,13 @@
 													<td><div class="col-lg-6">
 															<form
 																action="${deleteComponentAction}/${itemComponent.id}">
-																<button class="btn btn-primary" type="submit">Delete</button>
+																<button class="${buttonDefaultClasses }" type="submit">Delete</button>
 															</form>
 
 														</div>
 														<div class="col-lg-6">
 															<form action="${editComponentAction}/${itemComponent.id}">
-																<button class="btn btn-primary" type="submit">Edit</button>
+																<button class="${buttonDefaultClasses }" type="submit">Edit</button>
 															</form>
 														</div></td>
 												</tr>
@@ -101,9 +102,9 @@
 									</table>
 								</c:if>
 								<c:url var="eddComponentAction"
-									value="/item/addComponent/${item.id}"></c:url>
+									value="/items/component/add/${item.id}"></c:url>
 								<form action="${eddComponentAction}">
-									<button class="btn btn-outline btn-primary btn-lg"
+									<button class="${buttonOutlineClasses }"
 										type="submit">${__static__['editcomponents.button.add'] }</button>
 								</form>
 
@@ -116,6 +117,6 @@
 		</div>
 	</div>
 
-	<%@ include file="endingscripts.jsp"%>
+	<%@ include file="/WEB-INF/views/common/endingscripts.jsp"%>
 </body>
 </html>

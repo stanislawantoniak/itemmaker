@@ -15,7 +15,7 @@
 	<%--<%@ include file="navbar-right.jsp"%>--%>
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
-			<ul id="side-menu" class="nav in">
+			<ul id="side-menu" class="nav">
 				<li class="sidebar-search">
 					<div class="input-group custom-search-form">
 						<input class="form-control" type="text"
@@ -29,8 +29,13 @@
 				</li>
 				<c:url value="/items" var="items" />
 				<li><a class="active" href="${items}"> <i
-						class="fa fa-dashboard fa-fw"></i>
+						class="fa fa-table fa-fw"></i>
 						${__static__['leftpanel.menu.manageitems']}
+				</a></li>
+				<c:url value="/users" var="users" />
+				<li><a class="active" href="${users}"> <i
+						class="fa fa-wrench fa-fw"></i>
+						${__static__['leftpanel.menu.manageUsers']}
 				</a></li>
 			</ul>
 		</div>

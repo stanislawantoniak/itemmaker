@@ -79,7 +79,7 @@ public class ItemDaoImpl implements ItemDao {
 					items.iterator(); iterator.hasNext();){
 				Item item = (Item) iterator.next(); 
 				System.out.print("Nazwa: " + item.getName()); 
-				System.out.println("  czy z≥oøony: " + item.getIsComposed()); 
+				System.out.println("  czy z≈Ço≈ºonyy: " + item.getIsComposed()); 
 			}
 			 */
 			tx.commit();

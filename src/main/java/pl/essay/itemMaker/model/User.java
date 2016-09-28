@@ -15,15 +15,16 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name="user", uniqueConstraints = {
+@Table(name="users", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "name")})
 @NamedQueries(
 		@NamedQuery(
-				name = "get_user_by_name",
+				name = "getUserByName",
 				query = "select u from User u where name = :name"
 				)
 		)
@@ -36,30 +37,20 @@ public class User implements UserDetails{
 	@Column(name="name")
 	@NotNull(message="Name must not be empty")
 	@Size(min=8, message="Name must be at least 8 characters long")
-	private String username;
+	private String username = "";
 
 	@Column(name="password")
 	@NotNull(message="Password must not be empty")
 	@Size(min=6, message="Password must be at least 6 characters long")
-	private String password;
+	private String password = "";
 
-	@Column(name="enabled",nullable = false) 
-	private Boolean enabled = true;
+	@Column(columnDefinition="boolean", name="enabled") 
+	private boolean enabled = false;
 
 	@Column(name="roles",nullable = false) 
-	private String roles; //roles serialized with ; as separator
+	private String roles = ""; //roles serialized with ; as separator
 
-	public static final String roleAdmin = "ROLE_ADMIN";
-	public static final String roleUser = "ROLE_USER";
-	public List<String> getAllRoles(){
-		List<String> list = new ArrayList<String>();
-		list.add(User.roleAdmin);
-		list.add(User.roleUser);
-		return list;
-	}
-	
-	public User(){
-	}
+	public User(){}
 
 	public User(String name, String pass, String r, boolean e){
 		this.username = name;
@@ -105,13 +96,13 @@ public class User implements UserDetails{
 		Roles roles = new Roles(this.roles);
 		return roles.getGrantedAutority();
 	}
-	
+
 	public List<String> getRolesList() {
 		Roles roles = new Roles(this.roles);
 		return roles.getRolesList();
 	}
-	
-	
+
+
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
@@ -140,22 +131,24 @@ public class User implements UserDetails{
 		Collection<GrantedAuthority> grantedAuthority;
 		List<String> rolesList;
 
-		public Roles(String s){
+		public Roles(String roesSerialized){
 			grantedAuthority = new ArrayList<GrantedAuthority>();
 			rolesList = new ArrayList<String>();
-			
-			String[] roles = s.split(";");
-			for (String role: roles)
-				if (!"".equals(role)) {
-					grantedAuthority.add(new SimpleGrantedAuthority(role));
-					rolesList.add(role);
-				}
+
+			if (!"".equals(roesSerialized)){
+				String[] roles = roesSerialized.split(";");
+				for (String role: roles)
+					if (!"".equals(role)) {
+						grantedAuthority.add(new SimpleGrantedAuthority(role));
+						rolesList.add(role);
+					}
+			}
 		}
 
 		public Collection<GrantedAuthority> getGrantedAutority(){
 			return grantedAuthority;
 		}
-		
+
 		public List<String> getRolesList(){
 			return rolesList;
 		}

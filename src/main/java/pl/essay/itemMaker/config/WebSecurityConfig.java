@@ -17,7 +17,6 @@ import pl.essay.itemMaker.service.UserServiceImpl;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -40,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		System.out.println("configure global security");	
+		//System.out.println("configure global security");	
 		//auth
 		//.inMemoryAuthentication()
 		//.withUser("stan").password("pass").roles("USER").and()

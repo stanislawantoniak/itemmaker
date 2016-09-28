@@ -1,14 +1,11 @@
 package pl.essay.itemMaker.dao;
 
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 import pl.essay.itemMaker.model.User;
 
-public interface UserDao {
-	public long addUser(User i);
-	public void updateUser(User i);
-	public List<User> listUsers();
-	public User getUserById(int id);
+@Transactional
+public interface UserDao extends Dao<User> {
 	public User getUserByName(String name);
-	public void removeUser(int id);
+	public boolean existsUserByName(String name);
 }

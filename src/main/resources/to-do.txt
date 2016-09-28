@@ -1,9 +1,10 @@
-1. dodaæ grid do users, obs³ugê ról
-2. poprawiæ userdetails ¿eby zwraca³o autorities
+done 1. dodaæ grid do users, obs³ugê ról
+2. poprawiæ userdetails ¿eby zwraca³o autorities - ci¹gle nie wiem jak przekazaæ listê checkboxów
 3. dodac preauthorize na zarz¹dzanie u¿ytkownikami (service)
 4. wy³¹czyæ widocznoœæ w menu
 
 unit testy
+jpa - jak to zrobiæ
 dojo grid - przy tym chyba resta trzeba zrobiæ
 po³¹czenie z jakimœ soap zewnêtrznym 
 

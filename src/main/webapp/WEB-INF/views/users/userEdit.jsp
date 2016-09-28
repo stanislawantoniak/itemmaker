@@ -56,7 +56,7 @@
 										</form:label>
 										<form:input class="form-control" path="password"
 											type="password" autocomplete="new-password" />
-											<p class="help-block">${__static__['edituser.help.password'] }</p>
+										<p class="help-block">${__static__['edituser.help.password'] }</p>
 										<form:errors path="password" />
 									</div>
 
@@ -64,7 +64,7 @@
 										<form:label path="enabled">
 											${__static__['edituser.label.enabled'] }
 										</form:label>
-										
+
 										<c:if test="${user.enabled}">
 											<label class="radio-inline"> <input type="radio"
 												path="enabled" name="enabled" value="true" checked>
@@ -88,16 +88,22 @@
 										<p class="help-block">${__static__['edituser.help.enabled'] }</p>
 										<form:errors path="enabled" />
 									</div>
-									
-									<div class="form-group">
-										<form:label path="roles">${__static__['edituser.label.roles'] }</form:label>
-										<c:forEach items="${user.allRoles}" var="role">
-											<div class="checkbox-inline">
-												<label><input value="${role}" type="checkbox" path="roles">${role}</label>
-											</div>
-										</c:forEach>
 
-										<form:errors path="roles" />
+									<div class="form-group">
+										<form:label path="rolesSelected">${__static__['edituser.label.roles'] }</form:label>
+										<form:select class="form-control" path="rolesSelected" multiple="multiple">
+											<c:forEach items="${user.allRoles}" var="role">
+												<c:choose>
+													<c:when test="${role eq ''}">
+														<option value="${role}" selected="true" type="checkbox">${role}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${role}" type="checkbox">${role}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</form:select>
+										<form:errors path="rolesSelected" />
 									</div>
 
 									<button class="${buttonOutlineClasses }" type="submit">

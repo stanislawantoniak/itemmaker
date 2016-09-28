@@ -9,10 +9,11 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ 
-	"pl.essay.itemMaker.controller",
-	"pl.essay.itemMaker.service",
-	"pl.essay.itemMaker.dao", 
+@ComponentScan({
+	"pl.essay.itemMaker",
+	//"pl.essay.itemMaker.controller",
+	//"pl.essay.itemMaker.service",
+	//"pl.essay.itemMaker.dao", 
 	"pl.essay.session" 
 })
 

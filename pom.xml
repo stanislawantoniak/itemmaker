@@ -14,7 +14,7 @@
 		<org.aspectj-version>1.8.9</org.aspectj-version>
 		<org.slf4j-version>1.7.21</org.slf4j-version>
 	</properties>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -34,8 +34,42 @@
 				<configuration>
 					<warName>${project.artifactId}</warName>
 					<!-- <webappDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps/${project.artifactId}</webappDirectory> -->
-					<outputDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps</outputDirectory>
+					<!-- <outputDirectory>C:/Users/stani_000/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/webapps</outputDirectory> -->
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.4.v20120524</version>
+				<configuration>
+					<webAppConfig>
+						<contextPath>/${project.name}</contextPath>
+					</webAppConfig>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.eclipse.jetty</groupId>
+									<artifactId>jetty-runner</artifactId>
+									<version>9.2.7.v20150116</version>
+									<destFileName>jetty-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<finalName>${project.artifactId}</finalName>
@@ -46,11 +80,13 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 
@@ -60,12 +96,16 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 
 		<dependency>

@@ -1,11 +1,15 @@
 package pl.essay.itemMaker.controller;
 
 import java.util.List;
+
+import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,12 +27,7 @@ public class UserController extends BaseController {
 
 	protected static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	private UserService userService;
-
-	@Autowired
-	public void setUserService(UserService us){
-		this.userService = us;
-	} 
+	@Inject private UserService userService;
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(Model model) {
@@ -48,47 +47,58 @@ public class UserController extends BaseController {
 	//empty password => password not changed
 	//password must not be empty for new user however 
 	@RequestMapping(value= "/users/user/update", method = RequestMethod.POST)
-	public String updateUser(@Valid @ModelAttribute("user") User user,  
+	public String updateUser(@Valid @ModelAttribute("user") UserForm userForm,  
 			BindingResult result, //must follow modelattribute!!!!
 			RedirectAttributes redirectAttributes,
 			Model model){
-		
-		logger.info("update user data: "+user);
-		
-		if ( (result.hasErrors() && user.getId() == 0) //password must not be empty - no errors allowed for new user
-			|| ( result.getFieldErrorCount() > 1 && user.getId() != 0) ) { //allow for 1 error which is no password for existing user
+
+		logger.info("update user data: "+userForm);
+
+		if ( (result.hasErrors() && userForm.getId() == 0) //password must not be empty - no errors allowed for new user
+				|| ( result.getFieldErrorCount() > 1 && userForm.getId() != 0) ) { //allow for 1 error which is no password for existing user
 			this.addGenericDataToModel(model);
 			//disable language selector - because still staying on the same url and it doesnt support RequestMethod.GET
 			model.addAttribute("languageSelectorClass","disabled"); 
-			model.addAttribute("user", user);
+			model.addAttribute("user", userForm);
 			return "users/userEdit";
 		} else {
-			if (user.getId() == 0)
+			User user;
+			if (userForm.getId() == 0)
+				user = new User();
+			else
+				user = this.userService.getUserById(userForm.getId());
+
+			user.setUsername(userForm.getUsername());
+			user.setEnabled(userForm.getEnabled());
+			if (userForm.getRolesSelected() != null)
+				System.out.println(userForm.getRolesSelected().toArray());
+			user.setRoles(StringUtils.join(userForm.getRolesSelected().toArray(),";"));
+			if (!"".equals(userForm.getPassword())) //set pass only if filled passwodr field on form
+				user.setPassword(userForm.getPassword());
+			if (userForm.getId() == 0)
 				this.userService.addUser(user);
-			else {
-				if ("".equals(user.getPassword())){ //password not changed - get old pass
-					User u = this.userService.getUserById(user.getId());
-					user.setPassword(u.getPassword());
-				}
+			else 
 				this.userService.updateUser(user);
-			}
-			return  "redirect:/users" ;
 		}
+		return  "redirect:/users" ;
 	}
+
 
 	//edit existing and new user
 	//fill data model with generic and user data
 	//in case path id is == 0 then create new user for edit 
 	@RequestMapping("/users/user/edit/{id}")
 	public String editUser(@PathVariable("id") int id, Model model){
+		
+
 
 		this.addGenericDataToModel(model);
 
-		User user = (id != 0 ? this.userService.getUserById(id) : new User());
-		user.setPassword("");//no password on edit form allowed
+		UserForm uf = new UserForm( (id != 0 ? this.userService.getUserById(id) : new User()) );//init user for with new user or get from db 
 
-		model.addAttribute("user", user);
-		
+		model.addAttribute("user", uf);
+
 		return "users/userEdit";
 	}
+	
 }

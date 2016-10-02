@@ -77,7 +77,7 @@
 
 										<tbody>
 											<c:forEach items="${itemComponents}" var="itemComponent">
-												<c:url var="editComponentAction" value="/item/component/edit"></c:url>
+												<c:url var="editComponentAction" value="/items/component/edit"></c:url>
 												<c:url var="deleteComponentAction"
 													value="/items/component/delete"></c:url>
 												<tr>
@@ -86,7 +86,7 @@
 													<td>${itemComponent.quantity}</td>
 													<td><div class="col-lg-6">
 															<form
-																action="${deleteComponentAction}/${itemComponent.id}">
+																action="${deleteComponentAction}/${item.id }-${itemComponent.id}">
 																<button class="${buttonDefaultClasses }" type="submit">Delete</button>
 															</form>
 

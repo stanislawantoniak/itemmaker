@@ -2,27 +2,35 @@ package pl.essay.itemMaker.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.validation.constraints.*;
 
 @Entity
 @Table(name="item_component")
+//@SequenceGenerator(name="itemcomponent_seq", initialValue=1, allocationSize=100)
 public class ItemComponent {
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)//, generator="itemcomponent_seq")
 	@Column(name="id")
 	private int id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
+	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "parent_id", referencedColumnName = "id", nullable = false)
 	private Item parent;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
+	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name="component_item", referencedColumnName = "id", nullable = false)
 	private Item component;
 	

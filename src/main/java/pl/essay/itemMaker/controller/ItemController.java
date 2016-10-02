@@ -79,7 +79,7 @@ public class ItemController extends BaseController {
 		}
 	}
 
-	//update add component
+	//update or add component
 	@RequestMapping(value= "/items/component/update", method = RequestMethod.POST)
 	public String updateItemComponent(@Valid @ModelAttribute("itemComponent") ItemComponent itemComponent,
 			BindingResult result,
@@ -108,14 +108,15 @@ public class ItemController extends BaseController {
 		}
 	}
 
-	@RequestMapping("/items/component/delete/{id}")
-	public String deleteItemComponent(@PathVariable("id") int id){
-		ItemComponent ic = this.itemService.getItemComponent(id);
-		Item item = ic.getParent();
-		if( id != 0){ //never should be zero 
-			this.itemService.removeItemComponent(id);
-		}
-		return "redirect:/items/item/edit/"+item.getId();
+	@RequestMapping("/items/component/delete/{itemId}-{componentId}")
+	public String deleteItemComponent(
+			@PathVariable("itemId") int itemId,
+			@PathVariable("componentId") int componentId
+			){
+
+		this.itemService.removeItemComponent(componentId);
+
+		return "redirect:/items/item/edit/"+itemId;
 	}
 
 	//edit existing component
@@ -133,22 +134,8 @@ public class ItemController extends BaseController {
 		model.addAttribute("allItems", getItemListForSelect(item));
 		model.addAttribute("item", item);
 		model.addAttribute("itemComponent", ic);
-		return "items/componentEdit";
-	}
 
-	//#to do
-	//check for any circular reference in item components
-	//a us composed of b, b is composed of a
-	protected Map<String, String> getItemListForSelect(Item exclude) {
-		Map<String,String> allItems = new LinkedHashMap<String, String>();
-		Map<String,String> notSorted = new TreeMap<String, String>();
-		for (Item i: this.itemService.listItems()){
-			if (i.getId() != exclude.getId()) 
-				notSorted.put(i.getName(), ""+i.getId()); //sort by names
-		}
-		for (Map.Entry<String, String> i : notSorted.entrySet())
-			allItems.put(i.getValue(), i.getKey()+" (#"+i.getValue()+")");//put in linked map to save order
-		return allItems;
+		return "items/componentEdit";
 	}
 
 	//edit existing component
@@ -158,7 +145,11 @@ public class ItemController extends BaseController {
 		this.addGenericDataToModel(model);
 
 		ItemComponent ic = this.itemService.getItemComponent(id);
-		Item item = ic.getParent();
+		System.out.println("component in controller: "+ic);
+		
+		
+		int itemId = ic.getParent().getId();
+		Item item = this.itemService.getItemById( itemId );
 
 		model.addAttribute("allItems", getItemListForSelect(item));
 		model.addAttribute("item", item);
@@ -184,4 +175,20 @@ public class ItemController extends BaseController {
 			model.addAttribute("itemComponents", this.itemService.listItemComponent(id));
 		return "items/itemEdit";
 	}
+
+	//#to do
+	//check for any circular reference in item components
+	//a us composed of b, b is composed of a
+	protected Map<String, String> getItemListForSelect(Item exclude) {
+		Map<String,String> allItems = new LinkedHashMap<String, String>();
+		Map<String,String> notSorted = new TreeMap<String, String>();
+		for (Item i: this.itemService.listItems()){
+			if (i.getId() != exclude.getId()) 
+				notSorted.put(i.getName(), ""+i.getId()); //sort by names
+		}
+		for (Map.Entry<String, String> i : notSorted.entrySet())
+			allItems.put(i.getValue(), i.getKey()+" (#"+i.getValue()+")");//put in linked map to save order
+		return allItems;
+	}
+
 }

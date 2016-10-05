@@ -58,7 +58,7 @@
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 				<!-- use only to create db -->
-				<beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop><!-- validate: validate 
+				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop><!-- validate: validate 
 					the schema, makes no changes to the database. update: update the schema. 
 					create: creates the schema, destroying previous data. create-drop: drop the 
 					schema at the end of the session. -->

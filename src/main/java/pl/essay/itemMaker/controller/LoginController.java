@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pl.essay.itemMaker.model.User;
+import pl.essay.itemMaker.model.UserT;
 import pl.essay.itemMaker.service.UserService;
 
 @Controller
@@ -58,7 +58,7 @@ public class LoginController extends BaseController {
 			this.userService.loadUserByUsername(name);
 		} catch (UsernameNotFoundException e) {
 			System.out.println("User "+name+" does not exist in db.");
-			User user = new User(name,pass,UserForm.roleAdmin,true);
+			UserT user = new UserT(name,pass,UserForm.roleAdmin,true);
 			this.userService.addUser(user);
 			System.out.println("User : "+user+" added to db");
 		} finally {

@@ -26,40 +26,40 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name="users", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "name")})
+@Table(uniqueConstraints = {
+		@UniqueConstraint(columnNames = "username")})
 @NamedQueries(
 		@NamedQuery(
 				name = "getUserByName",
-				query = "select u from User u where name = :name"
+				query = "select u from UserT u where username = :name"
 				)
 		)
 //@SequenceGenerator(name="user_seq", initialValue=1, allocationSize=100)
-public class User implements UserDetails{
+public class UserT implements UserDetails{
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)//, generator="user_seq")
-	@Column(name="id")
+	@Column
 	private int id;
 
-	@Column(name="name")
+	@Column
 	@NotNull(message="Name must not be empty")
 	@Size(min=8, message="Name must be at least 8 characters long")
 	private String username = "";
 
-	@Column(name="password")
+	@Column
 	@NotNull(message="Password must not be empty")
 	@Size(min=6, message="Password must be at least 6 characters long")
 	private String password = "";
 
-	@Column(columnDefinition="boolean", name="enabled") 
+	@Column(columnDefinition="boolean") 
 	private boolean enabled = false;
 
-	@Column(name="roles",nullable = false) 
+	@Column(nullable = false) 
 	private String roles = ""; //roles serialized with ; as separator
 
-	public User(){}
+	public UserT(){}
 
-	public User(String name, String pass, String r, boolean e){
+	public UserT(String name, String pass, String r, boolean e){
 		this.username = name;
 		this.password = pass;
 		this.roles = r;
@@ -70,17 +70,17 @@ public class User implements UserDetails{
 	public void setId(int id){
 		this.id = id;
 	}
-	public void setUsername(String name){
-		this.username = name;
-	}
-	public void setPassword(String pass){
-		this.password = pass;
-	}
 	public int getId(){
 		return this.id;
 	}
+	public void setUsername(String name){
+		this.username = name;
+	}
 	public String getUsername(){
 		return this.username;
+	}
+	public void setPassword(String pass){
+		this.password = pass;
 	}
 	public String getPassword(){
 		return this.password;

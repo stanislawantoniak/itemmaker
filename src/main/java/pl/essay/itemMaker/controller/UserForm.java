@@ -3,7 +3,7 @@ package pl.essay.itemMaker.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.essay.itemMaker.model.User;
+import pl.essay.itemMaker.model.UserT;
 
 public class UserForm {
 	
@@ -24,7 +24,7 @@ public class UserForm {
 	
 	public UserForm(){}
 	
-	public UserForm(User u){
+	public UserForm(UserT u){
 		this.id = u.getId();
 		this.username = u.getUsername();
 		this.enabled = u.isEnabled();

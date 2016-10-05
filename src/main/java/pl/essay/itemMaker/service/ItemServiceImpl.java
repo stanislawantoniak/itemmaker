@@ -41,7 +41,10 @@ public class ItemServiceImpl implements ItemService{
 
 	public void removeItemComponent(int componentId){
 		ItemComponent ic = this.itemComponentDao.load(componentId);
-		this.itemComponentDao.delete(ic);
+		//this.itemComponentDao.delete(ic);
+		Item item = ic.getParent();
+		item.removeComponent(componentId);
+		this.itemDao.update(item);
 	}
 
 	public ItemComponent getItemComponent(int id){

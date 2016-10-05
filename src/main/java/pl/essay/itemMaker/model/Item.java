@@ -22,24 +22,24 @@ import org.hibernate.annotations.Type;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name="item", uniqueConstraints = {
+@Table(uniqueConstraints = {
 		@UniqueConstraint(columnNames = "name")}
 )
 //@SequenceGenerator(name="item_seq", initialValue=1, allocationSize=100)
 public class Item {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)//, generator="item_seq")
-	@Column(name="id")
+	@Column
 	private int id;
 
-	@Column(name="name")
+	@Column
 	@NotNull(message="Name must not be empty")
 	@Size(min=3, message="Name must be at least 3 characters long")
 	private String name;
 
-	@Column(name="is_composed") @Type(type="yes_no")
+	@Column @Type(type="yes_no")
 	private Boolean isComposed = false;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "parent", cascade=CascadeType.ALL)
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "parent", cascade={CascadeType.ALL})
 	private Set<ItemComponent> components = new HashSet<ItemComponent>();
 	//private Set itemComponents = new ArrayList<ItemComponent>();
 
@@ -85,6 +85,7 @@ public class Item {
 	public void addComponent(ItemComponent ic){
 		this.removeComponent(ic.getId());			
 		this.components.add(ic);
+		ic.setParent(this);
 		this.isComposed = true;
 		ic.setParent(this);
 	}

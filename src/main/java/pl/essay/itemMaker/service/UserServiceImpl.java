@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.essay.itemMaker.model.User;
+import pl.essay.itemMaker.model.UserT;
 import pl.essay.itemMaker.controller.UserForm;
 import pl.essay.itemMaker.dao.UserDao;
 
@@ -24,18 +24,18 @@ public class UserServiceImpl implements UserService{
 	public void init(){
 	}
 
-	public void updateUser(User i){
+	public void updateUser(UserT i){
 		this.userDao.update(i);
 	}
-	public long addUser(User i){
+	public long addUser(UserT i){
 		this.userDao.create(i);
 		return i.getId();
 	}
-	public List<User> listUsers(){
+	public List<UserT> listUsers(){
 		return this.userDao.getAll();
 
 	}
-	public User getUserById(int id){
+	public UserT getUserById(int id){
 		return this.userDao.get(id);
 	}
 	public void removeUser(int id){

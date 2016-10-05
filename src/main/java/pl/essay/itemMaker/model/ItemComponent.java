@@ -16,28 +16,32 @@ import org.hibernate.annotations.FetchMode;
 import javax.validation.constraints.*;
 
 @Entity
-@Table(name="item_component")
+@Table
 //@SequenceGenerator(name="itemcomponent_seq", initialValue=1, allocationSize=100)
 public class ItemComponent {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)//, generator="itemcomponent_seq")
-	@Column(name="id")
+	@Column
 	private int id;
 	
 	@ManyToOne
 	@Fetch(FetchMode.JOIN)
-	@JoinColumn(name = "parent_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id", nullable = false)
 	private Item parent;
 	
 	@ManyToOne
 	@Fetch(FetchMode.JOIN)
-	@JoinColumn(name="component_item", referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id", nullable = false)
 	private Item component;
 	
-	@Column(name="quantity")
+	@Column
 	@NotNull
     @DecimalMin("1")
 	private int quantity;
+	
+	@Column
+	private String remarks;
+	
 	
 	public ItemComponent(){
 	}
@@ -65,6 +69,12 @@ public class ItemComponent {
 	}
 	public int getQuantity(){
 		return this.quantity;
+	}
+	public void setRemarks(String r){
+		this.remarks = r;
+	}
+	public String getRemarks(){
+		return this.remarks;
 	}
 	public void setComponent(Item q){
 		this.component = q;

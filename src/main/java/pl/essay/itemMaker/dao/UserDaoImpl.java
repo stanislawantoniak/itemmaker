@@ -3,15 +3,15 @@ package pl.essay.itemMaker.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.essay.itemMaker.model.User;
+import pl.essay.itemMaker.model.UserT;
 
 @Repository
 @Transactional
-public class UserDaoImpl extends AbstractDaoHbn<User> implements UserDao {
+public class UserDaoImpl extends AbstractDaoHbn<UserT> implements UserDao {
 
-	public User getUserByName(String name) {
-		return (User) getSession()
-				.createQuery("select u from User u where name = :name")
+	public UserT getUserByName(String name) {
+		return (UserT) getSession()
+				.createQuery("select u from UserT u where username = :name")
 				//.createNamedQuery("getUserByName") //to fix later - named query does not work 
 				.setParameter("name", name)
 				.getSingleResult();

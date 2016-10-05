@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.essay.itemMaker.model.User;
+import pl.essay.itemMaker.model.UserT;
 import pl.essay.itemMaker.service.UserService;
 
 @Controller
@@ -32,7 +32,7 @@ public class UserController extends BaseController {
 
 		this.addGenericDataToModel(model);
 
-		List<User> theList = (List<User>) this.userService.listUsers();
+		List<UserT> theList = (List<UserT>) this.userService.listUsers();
 		logger.info("list size: "+theList.size());
 
 		model.addAttribute("usersList", theList);
@@ -60,9 +60,9 @@ public class UserController extends BaseController {
 			model.addAttribute("user", userForm);
 			return "users/userEdit";
 		} else {
-			User user;
+			UserT user;
 			if (userForm.getId() == 0)
-				user = new User();
+				user = new UserT();
 			else
 				user = this.userService.getUserById(userForm.getId());
 
@@ -92,7 +92,7 @@ public class UserController extends BaseController {
 
 		this.addGenericDataToModel(model);
 
-		UserForm uf = new UserForm( (id != 0 ? this.userService.getUserById(id) : new User()) );//init user for with new user or get from db 
+		UserForm uf = new UserForm( (id != 0 ? this.userService.getUserById(id) : new UserT()) );//init user for with new user or get from db 
 
 		model.addAttribute("user", uf);
 

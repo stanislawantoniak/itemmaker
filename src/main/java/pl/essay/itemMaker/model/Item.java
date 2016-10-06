@@ -39,11 +39,10 @@ public class Item {
 	@Column @Type(type="yes_no")
 	private Boolean isComposed = false;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "parent", cascade={CascadeType.ALL})
+	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "parent", cascade={CascadeType.ALL})
 	private Set<ItemComponent> components = new HashSet<ItemComponent>();
-	//private Set itemComponents = new ArrayList<ItemComponent>();
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "component")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "component")
 	private Set<ItemComponent> usedIn = new HashSet<ItemComponent>();
 	
 	public Item(){

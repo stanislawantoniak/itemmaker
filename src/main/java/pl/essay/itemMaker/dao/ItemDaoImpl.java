@@ -1,28 +1,22 @@
 package pl.essay.itemMaker.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.essay.itemMaker.model.Item;
 import pl.essay.itemMaker.model.ItemComponent;
+import pl.essay.itemMaker.model.UserT;
 
 @Repository
-@Transactional
-public class ItemDaoTransactional extends AbstractDaoHbn<Item> implements ItemDao {
+public class ItemDaoImpl extends AbstractDaoHbn<Item> implements ItemDao {
 
-	@Override
-	public Item load(Serializable id) {
-		Item item = super.load(id);
-		item.getComponents(); 
-		return item;
-	}
-	
 	public void addComponent(ItemComponent ic){
 		Item item = super.load( ic.getParent().getId() );
 		item.addComponent( ic );
 		this.update(item);
 	}
-
+	
 }

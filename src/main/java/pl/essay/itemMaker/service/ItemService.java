@@ -16,6 +16,4 @@ public interface ItemService {
 	public void removeItemComponent(int componentId);
 	public int addItemComponent(ItemComponent component);
 	public ItemComponent getItemComponent(int id);
-	public Set<ItemComponent> listItemComponent(int itemid);
-
 }

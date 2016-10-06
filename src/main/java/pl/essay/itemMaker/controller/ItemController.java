@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -30,12 +33,7 @@ public class ItemController extends BaseController {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
-	private ItemService itemService;
-
-	@Autowired
-	public void setItemService(ItemService ps){
-		this.itemService = ps;
-	} 
+	@Inject private ItemService itemService;
 
 	@InitBinder
 	public void registerCustomEditors(WebDataBinder binder) {
@@ -68,7 +66,8 @@ public class ItemController extends BaseController {
 			model.addAttribute("languageSelectorClass","disabled"); 
 
 			model.addAttribute("item", item);
-			model.addAttribute("itemComponents", this.itemService.listItemComponent(item.getId()));
+			Hibernate.initialize(item.getComponents());
+			model.addAttribute("itemComponents", item.getComponents());
 			return "items/itemEdit";
 		} else {
 			if (item.getId() == 0)
@@ -157,7 +156,7 @@ public class ItemController extends BaseController {
 		return "items/componentEdit";
 	}
 
-	//to do
+	//todo
 	//check if not used in other items
 	@RequestMapping("/items/item/remove/{id}")
 	public String removeItem(@PathVariable("id") int id){
@@ -166,17 +165,21 @@ public class ItemController extends BaseController {
 	}
 
 	@RequestMapping("/items/item/edit/{id}")
+	@Transactional
 	public String editItem(@PathVariable("id") int id, Model model){
 		logger.info("from controller.editItem");
 		this.addGenericDataToModel(model);
 
-		model.addAttribute("item", (id != 0 ? this.itemService.getItemById(id) : new Item()));
-		if (id != 0 )
-			model.addAttribute("itemComponents", this.itemService.listItemComponent(id));
+		Item item =  (id != 0 ? this.itemService.getItemById(id) : new Item());
+		model.addAttribute("item", item);
+		if (id != 0 ){
+			Hibernate.initialize(item.getComponents());
+			model.addAttribute("itemComponents", item.getComponents());
+		}
 		return "items/itemEdit";
 	}
 
-	//#to do
+	//#todo
 	//check for any circular reference in item components
 	//a us composed of b, b is composed of a
 	protected Map<String, String> getItemListForSelect(Item exclude) {

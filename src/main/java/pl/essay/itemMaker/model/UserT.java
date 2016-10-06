@@ -138,12 +138,12 @@ public class UserT implements UserDetails{
 		Collection<GrantedAuthority> grantedAuthority;
 		List<String> rolesList;
 
-		public Roles(String roesSerialized){
+		public Roles(String rolesSerialized){
 			grantedAuthority = new ArrayList<GrantedAuthority>();
 			rolesList = new ArrayList<String>();
 
-			if (!"".equals(roesSerialized)){
-				String[] roles = roesSerialized.split(";");
+			if (!"".equals(rolesSerialized)){
+				String[] roles = rolesSerialized.split(";");
 				for (String role: roles)
 					if (!"".equals(role)) {
 						grantedAuthority.add(new SimpleGrantedAuthority(role));

@@ -5,8 +5,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.essay.itemMaker.dao.ItemComponentDao;
@@ -15,7 +16,7 @@ import pl.essay.itemMaker.model.Item;
 import pl.essay.itemMaker.model.ItemComponent;
 
 @Service
-//@Transactional
+@Transactional
 public class ItemServiceImpl implements ItemService{
 
 	@Inject private ItemDao itemDao;
@@ -32,7 +33,12 @@ public class ItemServiceImpl implements ItemService{
 		return this.itemDao.getAll();
 	}
 	public Item getItemById(int id){
-		return this.itemDao.load(id);
+		Item item = this.itemDao.load(id);
+		//load lazy loaded collections
+		//Hibernate.initialize(item.getComponents());
+		//Hibernate.initialize(item.getUsedIn());
+		
+		return item;
 	}
 	public void removeItem(int id){
 		Item item = this.itemDao.load(id);
@@ -41,7 +47,6 @@ public class ItemServiceImpl implements ItemService{
 
 	public void removeItemComponent(int componentId){
 		ItemComponent ic = this.itemComponentDao.load(componentId);
-		//this.itemComponentDao.delete(ic);
 		Item item = ic.getParent();
 		item.removeComponent(componentId);
 		this.itemDao.update(item);
@@ -56,20 +61,13 @@ public class ItemServiceImpl implements ItemService{
 		if (component.getId() == 0){
 			int itemId = component.getParent().getId();
 			Item item = this.itemDao.load(itemId);
-			//System.out.println("item in additemcomponent itemservice: "+item);
 			item.addComponent(component);
 			this.itemDao.update(item);
 		} else {
 			this.itemComponentDao.update(component);
 		}
 
-
-		//this.itemComponentDao.update(component);
 		return component.getId();
 	}
 
-	public Set<ItemComponent> listItemComponent(int itemid){
-		Item item = this.getItemById(itemid);
-		return item.getComponents();
-	}
 }

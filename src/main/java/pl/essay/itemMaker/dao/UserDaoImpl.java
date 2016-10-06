@@ -6,13 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.essay.itemMaker.model.UserT;
 
 @Repository
-@Transactional
 public class UserDaoImpl extends AbstractDaoHbn<UserT> implements UserDao {
 
 	public UserT getUserByName(String name) {
 		return (UserT) getSession()
-				.createQuery("select u from UserT u where username = :name")
-				//.createNamedQuery("getUserByName") //to fix later - named query does not work 
+				.getNamedQuery("getUserByName") //to fix later - named query does not work 
 				.setParameter("name", name)
 				.getSingleResult();
 	}

@@ -2,6 +2,7 @@ package pl.essay.itemMaker.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,7 +15,6 @@ import pl.essay.itemMaker.service.UserServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.formLogin().loginPage("/login").permitAll()
 		.and()
 		.logout().permitAll();
+		
+		
 	}
 
 	@Autowired

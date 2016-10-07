@@ -10,7 +10,7 @@ public class UserDaoImpl extends AbstractDaoHbn<UserT> implements UserDao {
 
 	public UserT getUserByName(String name) {
 		return (UserT) getSession()
-				.getNamedQuery("getUserByName") //to fix later - named query does not work 
+				.getNamedQuery("getUserByName") 
 				.setParameter("name", name)
 				.getSingleResult();
 	}

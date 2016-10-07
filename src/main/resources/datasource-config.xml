@@ -15,7 +15,7 @@
 		/> <beans:property name="url" value="jdbc:mysql://localhost:3306/itemsmaker?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" 
 		/> <beans:property name="username" value="root" /> <beans:property name="password" 
 		value="skifms99" /> </beans:bean> -->
-		
+
 	<context:property-placeholder location="classpath*:*.properties" />
 	<beans:bean class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" id="dataSource">
@@ -37,12 +37,13 @@
 		<beans:property name="validationQuery" value="SELECT version();" />
 	</beans:bean>
 	<beans:bean class="java.net.URI" id="dbUrl">
-		<!--<beans:constructor-arg value="postgres://postgres:skifms99@localhost:5432/petclinic01" /> -->
-		 <beans:constructor-arg value="${DATABASE_URL}"/> 
+		<!--<beans:constructor-arg value="postgres://postgres:skifms99@localhost:5432/petclinic01" 
+			/> -->
+		<beans:constructor-arg value="${DATABASE_URL}" />
 	</beans:bean>
 
 	<!-- Hibernate 5 SessionFactory Bean definition -->
-	<beans:bean id="hibernate5AnnotatedSessionFactory"
+	<beans:bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
@@ -54,7 +55,8 @@
 		</beans:property>
 		<beans:property name="hibernateProperties">
 			<beans:props>
-				<beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect<!-- org.hibernate.dialect.MySQLDialect -->
+				<beans:prop key="hibernate.dialect">
+					org.hibernate.dialect.PostgreSQL95Dialect<!-- org.hibernate.dialect.MySQLDialect -->
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 				<!-- use only to create db -->
@@ -71,7 +73,7 @@
 	<beans:bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<beans:property name="sessionFactory"
-			ref="hibernate5AnnotatedSessionFactory" />
+			ref="sessionFactory" />
 	</beans:bean>
 
 </beans:beans>

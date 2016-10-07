@@ -33,11 +33,7 @@ public class ItemServiceImpl implements ItemService{
 		return this.itemDao.getAll();
 	}
 	public Item getItemById(int id){
-		Item item = this.itemDao.load(id);
-		//load lazy loaded collections
-		//Hibernate.initialize(item.getComponents());
-		//Hibernate.initialize(item.getUsedIn());
-		
+		Item item = this.itemDao.get(id);
 		return item;
 	}
 	public void removeItem(int id){
@@ -68,6 +64,10 @@ public class ItemServiceImpl implements ItemService{
 		}
 
 		return component.getId();
+	}
+	
+	public Set<ItemComponent> getItemComponentsByParent(int id) {
+		return this.itemComponentDao.getItemComponentsByParent(id);
 	}
 
 }

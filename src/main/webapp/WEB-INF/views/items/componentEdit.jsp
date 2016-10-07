@@ -52,6 +52,13 @@
 									<form:errors path="component" />
 								</div>
 								<div class="form-group">
+									<form:label path="remarks">
+										<spring:message text="Remarks" />
+									</form:label>
+									<form:textarea class="form-control" path="remarks" rows="3" />
+									<form:errors path="remarks" />
+								</div>
+								<div class="form-group">
 									<form:label path="quantity">
 										<spring:message text="Quantity" />
 									</form:label>
@@ -73,6 +80,7 @@
 							</form:form>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>

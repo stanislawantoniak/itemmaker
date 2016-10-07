@@ -3,6 +3,7 @@ package pl.essay.itemMaker.controller;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.inject.Inject;
@@ -66,8 +67,8 @@ public class ItemController extends BaseController {
 			model.addAttribute("languageSelectorClass","disabled"); 
 
 			model.addAttribute("item", item);
-			Hibernate.initialize(item.getComponents());
-			model.addAttribute("itemComponents", item.getComponents());
+
+			model.addAttribute("itemComponents", this.itemService.getItemComponentsByParent(item.getId()));
 			return "items/itemEdit";
 		} else {
 			if (item.getId() == 0)
@@ -145,8 +146,8 @@ public class ItemController extends BaseController {
 
 		ItemComponent ic = this.itemService.getItemComponent(id);
 		System.out.println("component in controller: "+ic);
-		
-		
+
+
 		int itemId = ic.getParent().getId();
 		Item item = this.itemService.getItemById( itemId );
 
@@ -165,23 +166,23 @@ public class ItemController extends BaseController {
 	}
 
 	@RequestMapping("/items/item/edit/{id}")
-	@Transactional
 	public String editItem(@PathVariable("id") int id, Model model){
 		logger.info("from controller.editItem");
 		this.addGenericDataToModel(model);
 
 		Item item =  (id != 0 ? this.itemService.getItemById(id) : new Item());
 		model.addAttribute("item", item);
+
 		if (id != 0 ){
-			Hibernate.initialize(item.getComponents());
-			model.addAttribute("itemComponents", item.getComponents());
+			Set<ItemComponent> set =  this.itemService.getItemComponentsByParent(id);
+			model.addAttribute("itemComponents", set);
 		}
 		return "items/itemEdit";
 	}
 
 	//#todo
 	//check for any circular reference in item components
-	//a us composed of b, b is composed of a
+	//a is composed of b, b is composed of a
 	protected Map<String, String> getItemListForSelect(Item exclude) {
 		Map<String,String> allItems = new LinkedHashMap<String, String>();
 		Map<String,String> notSorted = new TreeMap<String, String>();

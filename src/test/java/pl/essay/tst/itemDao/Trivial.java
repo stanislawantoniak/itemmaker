@@ -6,7 +6,7 @@ import org.junit.Test;
 public class Trivial {
 	@Test
 	public void testSimpleStuff() {
-		String name = "ProS pringHi  bernate";
+		String name = "ProSpringHibernate";
 		Assert.assertEquals("ProSpringHibernate", name);
 	}
 }
